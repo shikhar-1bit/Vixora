@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vixora — Services</title>
+  <meta name="description" content="Web design, development, UX audits, and custom UI components. Here's how Vixora can help." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Preload high-priority hero background ASAP -->
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="shared.js" defer></script>
+
+  <style>
+    .services-hero {
+      padding: 7rem 0 4rem;
+      background: transparent;
+    }
+    .services-hero h1 { font-style: italic; margin-bottom: 1rem; }
+    .services-hero p { max-width: 500px; font-size: 1.05rem; }
+
+    .service-number {
+      font-family: 'Bebas Neue', cursive;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--rust);
+      opacity: 0.25;
+      margin-bottom: 0.25rem;
+      line-height: 1;
+    }
+
+    .pricing-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .pricing-anchor {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-top: 0.5rem;
+    }
+    
+    .pricing-right {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .pricing-cards-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .pricing-card {
+      background: var(--cream-light);
+      border: var(--border);
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius-sm);
+      transition: box-shadow 0.4s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .pricing-card:hover {
+      border-color: var(--orange);
+    }
+
+    .pricing-addon {
+      border: 2px dashed rgba(0, 0, 0, 0.15);
+      background: transparent;
+    }
+
+    .pricing-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .pricing-card-header h4 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .pricing-card-header .price {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.4rem;
+      color: var(--charcoal);
+      letter-spacing: 0.05em;
+    }
+
+    .pricing-card p {
+      font-size: 0.95rem;
+      color: var(--charcoal-light);
+      margin: 0;
+    }
+
+    .pricing-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+
+    .pricing-tags .tag {
+      background: #000;
+      color: #fff;
+      border: none;
+      box-shadow: none;
+    }
+
+    /* Process steps */
+    .process-section { padding: 6rem 0; background: transparent; }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    .step {
+      position: relative;
+      padding: 1.5rem;
+      background: var(--cream);
+      border: var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+    }
+    .step-num {
+      font-family: 'Bebas Neue', cursive;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--rust);
+      opacity: 0.15;
+      position: absolute;
+      top: 0.75rem;
+      right: 1rem;
+      line-height: 1;
+    }
+    .step h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+    .step p { font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+      .pricing-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* Typing Cursor Styles */
+    .service-desc {
+      font-size: 1.02rem;
+      line-height: 1.75;
+      margin: 0;
+    }
+    .typed-text {
+      color: var(--charcoal-light);
+    }
+    .typing-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 15px;
+      background-color: var(--rust, #1A2026);
+      margin-left: 3px;
+      vertical-align: baseline;
+      position: relative;
+      top: 1px;
+      opacity: 0;
+      box-shadow: 0 0 4px rgba(26, 32, 38, 0.3);
+    }
+  </style>
+</head>
+<body data-page="services">
+  <div class="site-dots" aria-hidden="true"></div>
+
+  <div id="cursor"></div>
+  <div id="nav-placeholder"></div>
+
+  <main id="swup">
+
+    <!-- ═══════ HERO ═══════ -->
+    <section class="services-hero">
+      <div class="container">
+        <p class="section-label reveal">What We Offer</p>
+        <h1 class="reveal">Here's how we can help.</h1>
+        <p class="reveal">We keep the technical process frictionless. Tell us what business problem you're trying to solve, and we'll engineer the right digital solution together. No jargon, no rigid packages.</p>
+      </div>
+    </section>
+
+
+
+    <!-- ═══════ SERVICE CARDS ═══════ -->
+    <section class="service-cards-section">
+      <div class="container">
+
+        <!-- Service 1 -->
+        <div class="card service-card-wide">
+          <div class="service-left">
+            <div class="service-number">01</div>
+            <h3>Website Design<br>& Build</h3>
+          </div>
+          <div class="service-right">
+            <p class="service-desc" data-text="We design and build bespoke, high-performance websites that accurately reflect your brand. Every build is fully responsive, optimized for core web vitals, and engineered to scale seamlessly as your business grows. No templates, just pure, purposeful craft.">
+              <span class="typed-text"></span><span class="typing-cursor"></span>
+            </p>
+            <div class="service-tags" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; opacity: 0;">
+              <span class="tag">Design</span>
+              <span class="tag">Development</span>
+              <span class="tag">Responsive</span>
+              <span class="tag">Launch-ready</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="card service-card-wide">
+          <div class="service-left">
+            <div class="service-number">02</div>
+            <h3>UX Audit<br>& Redesign</h3>
+          </div>
+          <div class="service-right">
+            <p class="service-desc" data-text="We provide comprehensive UX audits to identify friction points and improve conversion rates. Using data and best practices, we formulate a clear redesign strategy that drastically improves the end-user experience and your bottom line.">
+              <span class="typed-text"></span><span class="typing-cursor"></span>
+            </p>
+            <div class="service-tags" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; opacity: 0;">
+              <span class="tag">UX Review</span>
+              <span class="tag">Redesign</span>
+              <span class="tag">Performance</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="card service-card-wide">
+          <div class="service-left">
+            <div class="service-number">03</div>
+            <h3>UI Components<br>& Dev Work</h3>
+          </div>
+          <div class="service-right">
+            <p class="service-desc" data-text="Need specialized technical execution? We write clean, maintainable HTML, CSS, and JavaScript that integrates perfectly with your existing architecture. From interactive components to performance optimizations, we seamlessly slot in as your technical partners.">
+              <span class="typed-text"></span><span class="typing-cursor"></span>
+            </p>
+            <div class="service-tags" style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; opacity: 0;">
+              <span class="tag">HTML/CSS/JS</span>
+              <span class="tag">Components</span>
+              <span class="tag">Integrations</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Brand callout -->
+        <div class="card brand-callout reveal">
+          <p>"Everything we build is designed around your brand. Your colours, your tone, your audience. Nothing off-the-shelf, nothing generic. If it doesn't feel like you, we're not done yet."</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════ PROCESS ═══════ -->
+    <section class="process-section">
+      <div class="container">
+        <p class="section-label reveal">How It Works</p>
+        <h2 class="reveal">From first message to live site.</h2>
+        <div class="steps-grid">
+          <div class="card step reveal">
+            <div class="step-num">1</div>
+            <h4>You reach out</h4>
+            <p>Tell us what you're working on — no formal brief required, just an honest conversation about your goals.</p>
+          </div>
+          <div class="card step reveal">
+            <div class="step-num">2</div>
+            <h4>We figure it out together</h4>
+            <p>We'll ask the right strategic questions and put together a tailored technical plan that fits both your needs and your budget.</p>
+          </div>
+          <div class="card step reveal">
+            <div class="step-num">3</div>
+            <h4>We build it</h4>
+            <p>You'll have full visibility as we design and develop. We encourage constructive feedback at every major milestone.</p>
+          </div>
+          <div class="card step reveal">
+            <div class="step-num">4</div>
+            <h4>You go live</h4>
+            <p>We rigorously test everything across multiple devices and browsers before launch, ensuring you're ready to take over once live.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ PRICING ═══════ -->
+    <section class="pricing-section" style="background: transparent;">
+      <div class="container">
+        <div class="pricing-inner">
+          <div class="pricing-left reveal">
+            <p class="section-label" style="color: var(--orange);">PRICING</p>
+            <h2>Wondering about pricing?</h2>
+            <p class="pricing-anchor">Projects start at ₹5,000.</p>
+            <p style="margin-top: 1rem;">The prices above are starting points, not ceilings. Complex projects, tight deadlines, or custom functionality may affect the final quote. Share your project details and we'll figure out exactly what works for your budget.</p>
+            <a href="contact.html" class="btn btn-primary" style="margin-top: 1.8rem;"><span>Let's Figure It Out →</span></a>
+          </div>
+          <div class="pricing-right reveal">
+            <div class="pricing-cards-grid">
+              <!-- Card 1 -->
+              <div class="pricing-card card">
+                <div class="pricing-card-header">
+                  <h4>Landing Page</h4>
+                  <span class="price">₹5,000</span>
+                </div>
+                <p>Single page, fast turnaround. Perfect for getting online quickly.</p>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="pricing-card card">
+                <div class="pricing-card-header">
+                  <h4>Multi-Page (3–4 pages)</h4>
+                  <span class="price">₹10,000</span>
+                </div>
+                <p>Home, About, Services, Contact. Everything a small business needs.</p>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="pricing-card card">
+                <div class="pricing-card-header">
+                  <h4>Multi-Page (5–7 pages)</h4>
+                  <span class="price">₹15,000</span>
+                </div>
+                <p>Larger presence, more depth. Built for growing businesses.</p>
+              </div>
+
+              <!-- Card 4: Add-on -->
+              <div class="pricing-card pricing-addon card">
+                <div class="pricing-card-header">
+                  <h4>Backend Add-on</h4>
+                  <span class="price">+₹5,000</span>
+                </div>
+                <p>Booking forms, order systems, or Telegram integrations.</p>
+              </div>
+            </div>
+
+            <div class="pricing-tags">
+              <span class="tag">NO HIDDEN FEES</span>
+              <span class="tag">QUOTED UPFRONT</span>
+              <span class="tag">HONEST TIMELINES</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>

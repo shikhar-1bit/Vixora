@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vixora — Lab</title>
+  <meta name="description" content="Experiments, explorations, and things Vixora built just to see if they could." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Preload high-priority hero background ASAP -->
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="shared.js" defer></script>
+
+</head>
+<body data-page="lab">
+  <div class="site-dots" aria-hidden="true"></div>
+
+  <div id="cursor"></div>
+  <div id="nav-placeholder"></div>
+
+  <main id="swup">
+    <style>
+      .lab-hero {
+        padding: 7rem 0 4rem;
+        background: transparent;
+      }
+      .lab-stamp {
+        font-family: 'Outfit', sans-serif;
+        display: inline-block;
+        font-size: 0.75rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--rust);
+        border: 2px solid var(--rust);
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--radius-md);
+        margin-bottom: 1.5rem;
+        opacity: 0.9;
+      }
+      .lab-hero h1 { font-style: italic; margin-bottom: 1rem; }
+      .lab-tagline {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        color: var(--charcoal-light);
+        max-width: 500px;
+        line-height: 1.7;
+      }
+
+      /* Snippet card previews — small animated demos */
+      .snippet-preview-nav {
+        position: relative;
+        overflow: hidden;
+        background: #000 !important;
+        opacity: 1 !important;
+      }
+      .demo-nav-inner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .demo-nav-logo { color: #fff; font-family: 'Special Elite', cursive; font-size: 0.9rem; }
+      .demo-nav-links { display: flex; gap: 0.75rem; }
+      .demo-nav-link {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        color: #fff;
+        text-transform: uppercase;
+        position: relative;
+        padding-bottom: 2px;
+      }
+      .demo-nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0; left: 0;
+        width: 0; height: 1px;
+        background: #fff;
+        animation: linkAnim 2s ease-in-out infinite;
+      }
+      @keyframes linkAnim {
+        0%, 40% { width: 0; }
+        60%, 100% { width: 100%; }
+      }
+
+      .snippet-preview-scroll {
+        background: var(--charcoal) !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Scroll Indicator Chevrons */
+      .chevrons { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+      .chev {
+        width: 18px; height: 10px;
+        border-right: 2px solid #fff;
+        border-bottom: 2px solid #fff;
+        transform: rotate(45deg);
+        animation: cascade 1.2s ease infinite;
+      }
+      .chev:nth-child(1) { animation-delay: 0s; }
+      .chev:nth-child(2) { animation-delay: .2s; }
+      .chev:nth-child(3) { animation-delay: .4s; }
+      @keyframes cascade {
+        0%, 100% { opacity: .15; }
+        50%       { opacity: 1; }
+      }
+      .scroll-card-demo {
+        height: 30px;
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(0,0,0,0.05);
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+        animation: cardReveal 2s ease-in-out infinite;
+      }
+      .scroll-card-demo:nth-child(2) { animation-delay: 0.3s; }
+      .scroll-card-demo:nth-child(3) { animation-delay: 0.6s; }
+      @keyframes cardReveal {
+        0%, 30% { opacity: 0; transform: translateY(10px); }
+        60%, 100% { opacity: 1; transform: translateY(0); }
+      }
+
+      .snippet-preview-cta {
+        background: #000 !important;
+        opacity: 1 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+      }
+      .sticky-cta-demo {
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #000;
+        background: #fff;
+        padding: 0.75rem 1.5rem;
+        border-radius: 100px;
+        box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+      }
+      .cta-pulse {
+        position: absolute;
+        inset: 0;
+        background: rgba(250,251,252,0.08);
+        animation: ctaPulse 2s ease-in-out infinite;
+      }
+      @keyframes ctaPulse {
+        0%, 100% { opacity: 0; }
+        50% { opacity: 1; }
+      }
+
+      .snippet-preview-scramble {
+        background: #1A2026 !important;
+        opacity: 1 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: 'Special Elite', monospace;
+        font-size: 1.1rem;
+        letter-spacing: 0.1em;
+        cursor: none;
+      }
+
+      /* Sticky notes */
+      .sticky-note-1 { transform: rotate(-1.5deg); background: #DCE5EB; }
+      .sticky-note-2 { transform: rotate(1deg); background: #C8D6DF; }
+
+      .lab-divider {
+        border: none;
+        border-top: 1px dashed rgba(26,32,38,0.2);
+        margin: 3rem 0;
+      }
+
+      .copy-feedback {
+        display: none;
+        font-family: 'Outfit', sans-serif;
+        font-size: 0.7rem;
+        color: var(--sage);
+        letter-spacing: 0.08em;
+        margin-top: 0.4rem;
+      }
+    </style>
+
+    <!-- ═══════ LAB HERO ═══════ -->
+    <section class="lab-hero">
+      <div class="container">
+        <div class="lab-stamp reveal">Ongoing</div>
+        <h1 class="reveal">The Lab.</h1>
+        <p class="lab-tagline reveal">Experiments, explorations, and things we built just to see if we could. Some of these will turn into products. Some won't. All of them taught us something.</p>
+      </div>
+    </section>
+
+
+
+    <!-- ═══════ UI SNIPPETS ═══════ -->
+    <section class="snippets-section">
+      <div class="container">
+        <p class="section-label reveal">UI Snippets</p>
+        <h2 class="reveal">Little pieces worth keeping.</h2>
+        <p class="reveal" style="max-width: 480px; margin-top: 0.5rem;">Reusable components we've built and liked enough to save. Copy the snippet, use it however you want.</p>
+
+        <div class="snippets-grid">
+
+          <!-- Snippet 1: Animated Nav -->
+          <div class="card snippet-card">
+            <div class="snippet-preview snippet-preview-nav" style="height: 160px;">
+              <div class="demo-nav-inner">
+
+                <div class="demo-nav-links">
+                  <div class="demo-nav-link">Work</div>
+                  <div class="demo-nav-link" style="animation-delay: 0.5s;">About</div>
+                  <div class="demo-nav-link" style="animation-delay: 1s;">Contact</div>
+                </div>
+              </div>
+            </div>
+            <h3 class="snippet-title">Animated Nav</h3>
+            <div class="snippet-copy" onclick="copySnippet(this, 'nav')">Copy Snippet →</div>
+            <div class="copy-feedback">Copied to clipboard!</div>
+          </div>
+
+          <!-- Snippet 2: Scroll Indicator -->
+          <div class="card snippet-card">
+            <div class="snippet-preview snippet-preview-scroll" style="height: 160px;">
+              <div class="chevrons">
+                <div class="chev"></div>
+                <div class="chev"></div>
+                <div class="chev"></div>
+              </div>
+            </div>
+            <h3 class="snippet-title">Scroll Indicator</h3>
+            <div class="snippet-copy" onclick="copySnippet(this, 'scroll')">Copy Snippet →</div>
+            <div class="copy-feedback">Copied to clipboard!</div>
+          </div>
+
+          <!-- Snippet 3: Magnetic CTA Button -->
+          <div class="card snippet-card">
+            <div class="snippet-preview snippet-preview-cta" style="height: 160px;">
+              <div class="cta-pulse"></div>
+              <div class="sticky-cta-demo">Get Started →</div>
+            </div>
+            <h3 class="snippet-title">Magnetic CTA Button</h3>
+            <div class="snippet-copy" onclick="copySnippet(this, 'cta')">Copy Snippet →</div>
+            <div class="copy-feedback">Copied to clipboard!</div>
+          </div>
+
+          <!-- Snippet 4: Text Scramble -->
+          <div class="card snippet-card">
+            <div class="snippet-preview snippet-preview-scramble" style="height: 160px;" data-scramble="VIXORA LAB">
+              VIXORA LAB
+            </div>
+            <h3 class="snippet-title">Text Scramble</h3>
+            <div class="snippet-copy" onclick="copySnippet(this, 'scramble')">Copy Snippet →</div>
+            <div class="copy-feedback">Copied to clipboard!</div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <hr class="lab-divider" />
+
+    <!-- ═══════ SIDE PROJECTS ═══════ -->
+    <section class="side-projects-section">
+      <div class="container">
+        <p class="section-label reveal">Side Projects</p>
+        <h2 class="reveal">Things we built for fun.</h2>
+        <p class="reveal" style="max-width: 460px; margin-top: 0.5rem; margin-bottom: 2rem;">Not client work. Just stuff we made because an idea wouldn't leave us alone.</p>
+
+        <div class="sticky-notes-grid">
+
+          <div class="card sticky-note sticky-note-1 reveal">
+            <div style="font-family: 'Special Elite', cursive; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.75rem; opacity: 0.7;">Coming Soon</div>
+            <h3>[Project Name]</h3>
+            <p style="margin-top: 0.5rem;">[What it does in one sentence. This is a placeholder for an upcoming side project.]</p>
+          </div>
+
+          <div class="card sticky-note sticky-note-2 reveal">
+            <div style="font-family: 'Special Elite', cursive; font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rust); margin-bottom: 0.75rem; opacity: 0.7;">In Progress</div>
+            <h3>[Project Name]</h3>
+            <p style="margin-top: 0.5rem;">[What it does in one sentence. Another placeholder — this space will fill up fast.]</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script>
+    // Robust copy-to-clipboard implementation
+    function copySnippet(el, type) {
+      const snippets = {
+        nav: `/* Hover underline nav link */\n.nav-link { position: relative; }\n.nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--rust); transition:width .3s ease; }\n.nav-link:hover::after { width:100%; }`,
+        scroll: `/* Scroll Indicator (Chevrons) */\n// HTML:\n<div class="chevrons">\n  <div class="chev"></div>\n  <div class="chev"></div>\n  <div class="chev"></div>\n</div>\n\n// CSS:\n.chevrons { display: flex; flex-direction: column; align-items: center; gap: 2px; }\n.chev {\n  width: 18px; height: 10px;\n  border-right: 2px solid #fff;\n  border-bottom: 2px solid #fff;\n  transform: rotate(45deg);\n  animation: cascade 1.2s ease infinite;\n}\n.chev:nth-child(2) { animation-delay: .2s; }\n.chev:nth-child(3) { animation-delay: .4s; }\n@keyframes cascade {\n  0%, 100% { opacity: .15; }\n  50% { opacity: 1; }\n}`,
+        cta: `/* Magnetic CTA Button (GSAP) */\n// CSS: .magnetic-cta { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%); background:var(--rust); color:var(--cream); padding:1rem 2rem; border-radius:50px; cursor:pointer; }\n\n// JS:\nconst btn = document.querySelector('.magnetic-cta');\nbtn.addEventListener('mousemove', (e) => {\n  const r = btn.getBoundingClientRect();\n  const dx = (e.clientX - (r.left + r.width/2)) * 0.4;\n  const dy = (e.clientY - (r.top + r.height/2)) * 0.4;\n  gsap.to(btn, { x: dx, y: dy, scale: 1.1, duration: 0.4 });\n});\nbtn.addEventListener('mouseleave', () => {\n  gsap.to(btn, { x: 0, y: 0, scale: 1, duration: 0.6, ease: "elastic.out(1, 0.3)" });\n});`,
+        scramble: `/* Text Scramble Effect */\nconst CHARSET = '!<>-_\/[]{}—=+*^?#';\nfunction scramble(el, finalText, speed = 30) {\n  let frame = 0;\n  const totalFrames = 20;\n  if (el._timer) clearInterval(el._timer);\n  el._timer = setInterval(() => {\n    el.textContent = finalText.split('').map((char, i) => {\n      if (frame / totalFrames > i / finalText.length) return char;\n      return CHARSET[Math.floor(Math.random() * CHARSET.length)];\n    }).join('');\n    if (++frame > totalFrames + finalText.length) {\n      el.textContent = finalText;\n      clearInterval(el._timer);\n    }\n  }, speed);\n}`
+      };
+      
+      const textToCopy = snippets[type];
+
+      // Try modern Clipboard API first
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(textToCopy).catch(err => console.error('Clipboard API failed', err));
+      } else {
+        // Fallback for older browsers or non-secure contexts
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        textArea.style.position = "fixed"; // Prevent scrolling to bottom
+        textArea.style.left = "-999999px";
+        document.body.appendChild(textArea);
+        textArea.select();
+        try {
+          document.execCommand('copy');
+        } catch (err) {
+          console.error('Fallback copy failed', err);
+        }
+        document.body.removeChild(textArea);
+      }
+
+      // Show feedback
+      const fb = el.nextElementSibling;
+      fb.style.display = 'block';
+      setTimeout(() => fb.style.display = 'none', 2000);
+    }
+
+    // Scramble logic for demo
+    const CHARSET = '!<>-_\/[]{}—=+*^?#';
+    function scramble(el, finalText, speed = 30) {
+      let frame = 0;
+      const totalFrames = 15;
+      if (el._timer) clearInterval(el._timer);
+      el._timer = setInterval(() => {
+        el.textContent = finalText.split('').map((char, i) => {
+          if (frame / totalFrames > i / finalText.length) return char;
+          return CHARSET[Math.floor(Math.random() * CHARSET.length)];
+        }).join('');
+        if (++frame > totalFrames + finalText.length) {
+          el.textContent = finalText;
+          clearInterval(el._timer);
+        }
+      }, speed);
+    }
+
+    document.querySelectorAll('.snippet-preview-scramble').forEach(el => {
+      el.addEventListener('mouseenter', () => scramble(el, el.dataset.scramble));
+    });
+
+    // Magnetic CTA Demo
+    const ctaZone = document.querySelector('.snippet-preview-cta');
+    const ctaBtn = ctaZone ? ctaZone.querySelector('.sticky-cta-demo') : null;
+    if (ctaZone && ctaBtn) {
+      ctaZone.addEventListener('mousemove', (e) => {
+        const r = ctaBtn.getBoundingClientRect();
+        const cx = r.left + r.width / 2;
+        const cy = r.top + r.height / 2;
+        const dx = (e.clientX - cx) * 0.45;
+        const dy = (e.clientY - cy) * 0.45;
+        gsap.to(ctaBtn, { x: dx, y: dy, scale: 1.1, duration: 0.4, ease: "power2.out" });
+      });
+      ctaZone.addEventListener('mouseleave', () => {
+        gsap.to(ctaBtn, { x: 0, y: 0, scale: 1, duration: 0.7, ease: "elastic.out(1, 0.3)" });
+      });
+    }
+  </script>
+
+</body>
+</html>

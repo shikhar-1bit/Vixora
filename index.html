@@ -1,0 +1,2305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vixora — Fast. Fluid. Frictionless.</title>
+  <meta name="description"
+    content="Vixora is a web design and development studio. We build websites that feel alive — smooth, responsive, and made to match your brand." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Special+Elite&family=Inter:wght@400;500;600;700;800&family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=Syne:wght@800&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Passions+Conflict&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet" />
+
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- CDN Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="shared.js" defer></script>
+
+  <style>
+    /* Page-specific styles */
+    body[data-page="index"] main {
+      padding-top: 0;
+    }
+
+    body[data-page="index"] {
+      background: #F4F5F6;
+    }
+
+    /* Preloader Styles (Vixora-2 style) */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: #0A0A0A;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 900ms cubic-bezier(0.85, 0, 0.15, 1), opacity 900ms ease;
+      will-change: transform, opacity;
+      transform: translateY(0);
+    }
+
+    .loader-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .loader-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 8vw, 120px);
+      letter-spacing: clamp(0.1em, 1.5vw, 0.25em);
+      color: #F2F0EB;
+      will-change: opacity;
+      animation: perfPulse 1.6s ease-in-out infinite;
+    }
+
+    .loader-logo span {
+      display: inline-block;
+    }
+
+    .loader-progress {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      opacity: 0.5;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #F2F0EB;
+    }
+
+    @keyframes perfPulse {
+
+      0%,
+      100% {
+        opacity: 0.4;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .loader-logo {
+        animation: none !important;
+        opacity: 1 !important;
+      }
+
+      #preloader {
+        transition: none !important;
+      }
+    }
+
+    /* Initial Visibility States (for GSAP to reveal) */
+    #vixora-nav,
+    .hero-redesign .reveal,
+    .hero-sub,
+    .hero-ctas {
+      opacity: 0;
+    }
+
+
+    .hero-redesign {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 750px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 8vh;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-content-new {
+      position: relative;
+      z-index: 10;
+    }
+
+    .hero-title-new {
+      font-family: 'Bebas Neue', cursive;
+      font-weight: 400;
+      font-size: clamp(4.75rem, 11.5vw, 9.5rem);
+      line-height: 0.95;
+      color: #000;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.01em;
+      text-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.15),
+        0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .hero-sub-new {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 300;
+      font-size: 1.4rem;
+      color: #333;
+      line-height: 1.6;
+      max-width: 850px;
+      margin: 0 auto;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-hands {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .hand {
+      position: absolute;
+      top: 73%;
+      /* Lowered further */
+      transform: translateY(-50%);
+      width: 56%;
+      max-width: 900px;
+      object-fit: contain;
+    }
+
+    .robot-hand {
+      left: -3%;
+      top: 77%;
+      /* Lowered specifically */
+    }
+
+    .human-hand {
+      right: -3%;
+    }
+
+    .magnetic-zone {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin-left: auto;
+      margin-right: auto;
+      width: max-content;
+      top: 47%;
+      /* Adjusted to push the desktop CTA button up a little bit */
+      padding: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      pointer-events: auto;
+    }
+
+    .btn-get-in-touch {
+      position: relative;
+      background: #000;
+      color: #fff;
+      padding: 1.15rem 2.6rem;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      pointer-events: auto;
+      z-index: 10;
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.2),
+        0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s, background 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-get-in-touch:hover {
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+      background: #111;
+    }
+
+    .hero-bottom-text {
+      position: absolute;
+      bottom: 2.2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .hero-bottom-text .bottom-sans {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 350;
+      color: #1A2026;
+      letter-spacing: -0.015em;
+    }
+
+    .hero-bottom-text .bottom-script {
+      font-family: 'Pinyon Script', cursive;
+      font-size: 2.3rem;
+      color: #1A2026;
+      line-height: 1;
+      margin-top: 0.15rem;
+      margin-left: 0.1rem;
+      display: inline-block;
+    }
+
+    .hero-tagline-mobile {
+      display: none;
+    }
+
+
+
+    /* Brand promise dark section */
+    .brand-promise-wrap {
+      padding: 7rem 0;
+      background: transparent;
+      position: relative;
+    }
+
+
+    .brand-promise-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .brand-promise-inner h2 {
+      color: var(--charcoal);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+    }
+
+    .brand-promise-inner p {
+      color: var(--charcoal-light);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .brand-badge {
+      background: var(--rust, #1A2026) !important;
+      color: var(--cream, #F4F5F6) !important;
+      padding: 3rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      height: auto !important;
+    }
+
+    .brand-badge .big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-badge p {
+      color: rgba(244, 245, 246, 0.85) !important;
+      font-size: 0.85rem;
+    }
+
+    /* AI section */
+    .ai-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .ai-visual {
+      background: var(--kraft);
+      border: var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+      font-family: 'Special Elite', cursive;
+      font-size: 0.8rem;
+      color: var(--charcoal);
+      letter-spacing: 0.05em;
+      line-height: 2;
+      height: auto !important;
+    }
+
+    .ai-visual .ai-line {
+      opacity: 0.7;
+      padding: 0.2rem 0;
+      border-bottom: 1px dashed rgba(26, 32, 38, 0.15);
+    }
+
+    .ai-visual .ai-line:last-child {
+      border-bottom: none;
+      opacity: 1;
+      color: var(--rust);
+    }
+
+    @media (max-width: 767px) {
+      .brand-promise-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .ai-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    .featured-work {
+      overflow: hidden;
+      padding: 6rem 0 10rem;
+      /* Reduced top padding */
+    }
+
+    .work-scroll-container {
+      width: 100%;
+      overflow: visible;
+      margin-top: 2rem;
+    }
+
+    .work-grid {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      gap: 3rem !important;
+      width: max-content;
+      padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+      padding-right: 15vw;
+      /* Enough to see the last card clearly */
+    }
+
+    .work-card {
+      width: 420px !important;
+      flex-shrink: 0 !important;
+      height: auto !important;
+      /* Allow height to adjust to content */
+      min-height: 460px !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .work-thumb {
+      height: 220px !important;
+      /* Slightly smaller thumb */
+      flex-shrink: 0;
+    }
+
+    /* Mobile Viewports (Phones) */
+    @media (max-width: 767px) {
+      .hero-redesign {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 15vh;
+        padding-bottom: 5rem;
+      }
+
+      .hero-title-new {
+        font-size: clamp(2.0rem, 7vw, 2.5rem);
+        line-height: 1.15;
+        margin-bottom: 1rem;
+        letter-spacing: 0.01em;
+      }
+
+      .hero-sub-new {
+        font-size: 0.9rem;
+        line-height: 1.6;
+        padding: 0 1.5rem;
+      }
+
+      .hero-sub-new br {
+        display: none;
+      }
+
+      .hand {
+        width: 85%;
+        opacity: 1;
+        filter: none;
+      }
+
+      .robot-hand {
+        left: -28%;
+        top: 50%;
+        transform: translateY(-50%) rotate(56deg);
+      }
+
+      .human-hand {
+        right: -25%;
+        top: 92%;
+        transform: translateY(-50%) rotate(35deg);
+      }
+
+      .magnetic-zone {
+        top: 60%;
+        /* Pushed up a bit more */
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: max-content;
+      }
+
+      .btn-get-in-touch {
+        white-space: nowrap;
+        padding: 0.8rem 2.2rem;
+        font-size: 0.85rem;
+      }
+
+      .hero-bottom-text {
+        display: none !important;
+      }
+
+      .hero-tagline-mobile {
+        display: block;
+        position: absolute;
+        bottom: 2.5rem;
+        left: 2rem;
+        z-index: 15;
+        text-align: left;
+        line-height: 1.35;
+        pointer-events: none;
+      }
+
+      .hero-tagline-mobile .text-sans {
+        font-family: 'Outfit', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 350;
+        color: #1A2026;
+        margin: 0;
+        letter-spacing: -0.015em;
+        line-height: 1.25;
+      }
+
+      .hero-tagline-mobile .text-script {
+        font-family: 'Pinyon Script', cursive;
+        font-size: 3rem;
+        color: #1A2026;
+        margin: -0.1rem 0 0 -8px;
+        line-height: 1.0;
+        display: block;
+      }
+
+      .work-grid {
+        gap: 1.5rem !important;
+      }
+
+      .work-card {
+        width: 300px !important;
+        height: auto !important;
+      }
+
+      .work-thumb {
+        height: 200px !important;
+      }
+    }
+
+    @media (max-width: 1024px),
+    (pointer: coarse) {
+      .featured-work {
+        padding: 4rem 0 !important;
+      }
+
+      .work-scroll-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
+        scrollbar-width: none !important;
+      }
+
+      .work-scroll-container::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .work-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        width: max-content !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        transform: none !important;
+      }
+    }
+
+    /* iPad Portrait Specific Overrides (Optimized Scaling) */
+    @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+
+      /* Center the hero content block */
+      .hero-content {
+        left: 50% !important;
+        top: 8vh !important;
+        transform: translateX(-50%) !important;
+        width: 88% !important;
+        text-align: center !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+      }
+
+      .hero-headline {
+        font-size: clamp(3rem, 6vw, 4.5rem) !important;
+        line-height: 1.08 !important;
+      }
+
+      /* Reset robot back to center (overrides the 65% left from the general tablet query) */
+      .hero-spline {
+        left: 50% !important;
+        top: auto !important;
+        bottom: -10vh !important;
+        transform: translateX(-50%) translateZ(0) !important;
+        height: 72vh !important;
+        width: 150vw !important;
+      }
+
+      /* Hide orbit ring — too cluttered on portrait */
+      .hero-orbit {
+        display: none !important;
+      }
+
+      /* Center the CTA buttons below the headline */
+      .hero-pill-wrap {
+        top: 37vh !important;
+        bottom: auto !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translateX(-50%) !important;
+        justify-content: center !important;
+        width: max-content !important;
+        gap: 1rem !important;
+      }
+
+      /* Show the desktop availability badge below the headline (it's inside hero-content) */
+      .availability-badge {
+        display: inline-flex !important;
+        margin-top: 1.5rem !important;
+      }
+
+      /* Hide the mobile-only badge — iPad portrait triggers max-width:768px too */
+      .availability-badge-mobile {
+        display: none !important;
+      }
+    }
+
+    /* iPad Landscape Specific Overrides */
+    @media only screen and (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
+
+      .hero-content,
+      .hero-pill-wrap {
+        left: 2rem !important;
+      }
+
+      .robot-hand {
+        left: -8% !important;
+      }
+
+      .human-hand {
+        right: -6% !important;
+      }
+
+      .magnetic-zone {
+        top: 55% !important;
+        left: 0 !important;
+        right: 0 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: max-content !important;
+      }
+
+      .btn-get-in-touch {
+        padding: 0.8rem 1.8rem !important;
+        font-size: 0.89rem !important;
+      }
+
+      .hero-pill-wrap {
+        left: 2% !important;
+        right: auto !important;
+      }
+    }
+
+    :root {
+      --orange: #FF3C28;
+      --orange-glow: rgba(255, 60, 40, 0.45);
+      --dark-text: #0D1117;
+    }
+
+    /* ══ HERO ═══════════════════════════════════════ */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 680px;
+      overflow: hidden;
+      background: transparent;
+      z-index: 1;
+    }
+
+    .noise-bg {
+      display: none;
+    }
+
+    /* HERO CONTENT */
+    .hero-content {
+      position: absolute;
+      left: 3rem;
+      top: 26%;
+      z-index: 20;
+    }
+
+    .hero-label {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      opacity: 1;
+      margin-bottom: 1rem;
+    }
+
+    .hero-headline {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 4.5vw, 3.8rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      color: var(--dark-text);
+    }
+
+    .hero-beautiful {
+      font-family: 'Great Vibes', cursive;
+      font-size: 1.8em;
+      font-weight: 400;
+      line-height: 0.8;
+      position: relative;
+      display: inline-block;
+      text-transform: none !important;
+    }
+
+    .hero-beautiful::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0.18em;
+      width: 100%;
+      height: 4px;
+      background: var(--orange);
+      box-shadow: 0 0 24px var(--orange-glow), 0 0 12px var(--orange-glow);
+      border-radius: 4px;
+      z-index: -1;
+    }
+
+    @media (max-width: 767px) {
+      .hero-content {
+        left: 1.5rem;
+        top: 22%;
+      }
+    }
+
+    /* HERO SPLINE */
+    .hero-spline {
+      position: absolute;
+      top: 50%;
+      left: 70%;
+      /* translateZ(0) promotes to its own GPU compositor layer before the transition begins */
+      transform: translate(-50%, -50%) translateZ(0);
+      width: 100%;
+      height: 100%;
+      z-index: 5;
+      clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), calc(100% - 180px) calc(100% - 60px), calc(100% - 180px) 100%, 0 100%);
+      /* Hint to the browser to promote this layer ahead of the exit animation */
+      will-change: transform, opacity;
+    }
+
+    /* HERO ORBIT CIRCLE */
+    .hero-orbit {
+      position: absolute;
+      top: 50%;
+      left: 70%;
+      transform: translate(-50%, -50%);
+      width: 92vh;
+      height: 92vh;
+      max-width: 1000px;
+      max-height: 1000px;
+      border: 1px solid rgba(13, 17, 23, 0.15);
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-orbit::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72%;
+      height: 72%;
+      border: 1px solid rgba(13, 17, 23, 0.07);
+      border-radius: 50%;
+    }
+
+    .orbit-arm {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* FLOATING LABELS */
+    .float-wrapper {
+      position: absolute;
+      z-index: 20;
+      top: 50%;
+      left: 100%;
+      will-change: transform;
+      pointer-events: none;
+    }
+
+    .float-label {
+      display: block;
+      padding: 0.28rem 0.65rem;
+      border: 1px solid rgba(13, 17, 23, 0.32);
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--dark-text);
+      background: transparent;
+      transform: translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @media (max-width: 767px) {
+      .hero-orbit {
+        display: none !important;
+      }
+    }
+
+    /* PILL BUTTON */
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      background: var(--orange);
+      border-radius: 100px;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.3, 1), box-shadow 0.3s, background-color 0.3s;
+      border: none;
+      overflow: hidden;
+      text-decoration: none;
+      position: relative;
+      animation: pill-pulse-idle 3s infinite ease-in-out;
+    }
+
+    .pill-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent);
+      transition: all 0.6s ease;
+    }
+
+    .pill-btn:hover::before {
+      left: 150%;
+    }
+
+    .pill-btn:hover {
+      transform: scale(1.05);
+      animation: pill-pulse-active 1.5s infinite ease-in-out;
+    }
+
+    .pill-btn:active {
+      transform: scale(0.96);
+      transition: transform 0.1s;
+    }
+
+    @keyframes pill-pulse-idle {
+      0% {
+        box-shadow: 0 0 0 0 rgba(232, 80, 10, 0.25), 0 0 28px var(--orange-glow);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(232, 80, 10, 0), 0 0 28px var(--orange-glow);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(232, 80, 10, 0), 0 0 28px var(--orange-glow);
+      }
+    }
+
+    @keyframes pill-pulse-active {
+      0% {
+        box-shadow: 0 0 0 0 rgba(232, 80, 10, 0.45), 0 0 45px var(--orange-glow);
+      }
+
+      70% {
+        box-shadow: 0 0 0 18px rgba(232, 80, 10, 0), 0 0 65px var(--orange-glow);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(232, 80, 10, 0), 0 0 45px var(--orange-glow);
+      }
+    }
+
+    .pill-btn--black {
+      background: #000 !important;
+      animation: pill-pulse-idle-black 3s infinite ease-in-out !important;
+    }
+
+    .pill-btn--black:hover {
+      animation: pill-pulse-active-black 1.5s infinite ease-in-out !important;
+    }
+
+    @keyframes pill-pulse-idle-black {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.25), 0 0 28px rgba(0, 0, 0, 0.15);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(0, 0, 0, 0), 0 0 28px rgba(0, 0, 0, 0.15);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 28px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    @keyframes pill-pulse-active-black {
+      0% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.35), 0 0 35px rgba(0, 0, 0, 0.25);
+      }
+
+      70% {
+        box-shadow: 0 0 0 14px rgba(0, 0, 0, 0), 0 0 35px rgba(0, 0, 0, 0.25);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0), 0 0 35px rgba(0, 0, 0, 0.25);
+      }
+    }
+
+    /* MAGNETIC ZONE */
+    .magnetic-zone {
+      padding: 60px;
+      display: inline-flex;
+      margin: -60px;
+    }
+
+    .pill-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 1.15rem;
+      color: #fff;
+      padding: 1.05rem 1.6rem 1.05rem 2.2rem;
+      white-space: nowrap;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pill-icon-wrap {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 6px 6px 6px 0;
+      flex-shrink: 0;
+      perspective: 600px;
+      transition: transform 0.3s cubic-bezier(0.25, 1, 0.3, 1), background-color 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .pill-btn:hover .pill-icon-wrap {
+      transform: scale(1.08) rotate(15deg);
+      background-color: rgba(255, 255, 255, 0.28);
+    }
+
+    .icon-flipper {
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform-style: preserve-3d;
+    }
+
+    /* HERO PILL POSITION */
+    .hero-pill-wrap {
+      position: absolute;
+      bottom: 12%;
+      left: 3rem;
+      right: auto;
+      z-index: 20;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    @media (max-width: 767px) {
+      .hero-pill-wrap {
+        top: 40vh;
+        bottom: auto;
+        left: 0;
+        right: 0;
+        width: 100%;
+        justify-content: center;
+        gap: 0.75rem;
+        flex-wrap: nowrap;
+        padding: 0 0.5rem;
+        box-sizing: border-box;
+      }
+
+      .pill-text {
+        font-size: 1rem;
+        padding: 0.85rem 1rem 0.85rem 1.5rem;
+      }
+
+      .pill-icon-wrap {
+        width: 44px;
+        height: 44px;
+        margin: 4px 4px 4px 0;
+      }
+
+      .icon-flipper {
+        transform: scale(0.85);
+      }
+
+      .hero-spline {
+        top: auto;
+        bottom: -5vh;
+        left: 50%;
+        transform: translateX(-50%) translateZ(0);
+        height: 55vh;
+        width: 160vw;
+      }
+
+      .hero-content {
+        position: absolute;
+        top: 10vh;
+        left: 50%;
+        transform: translateX(-50%) !important;
+        width: 90%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+      }
+
+      .hero-label {
+        display: none !important;
+        /* Hide 'WHAT WE DO' on mobile */
+      }
+
+      .hero-headline {
+        font-size: clamp(2.0rem, 7vw, 2.5rem);
+        line-height: 1.15;
+      }
+
+      .availability-badge {
+        display: none !important;
+      }
+
+      /* Mobile availability badge — sits between buttons and robot */
+      .availability-badge-mobile {
+        display: inline-flex !important;
+        position: absolute;
+        top: 48vh;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 20;
+        white-space: nowrap;
+        pointer-events: none;
+        font-size: 0.7rem !important;
+        padding: 0.4rem 0.9rem !important;
+        letter-spacing: 0.04em !important;
+      }
+    }
+
+    /* Hide mobile badge on desktop */
+    .availability-badge.availability-badge-mobile {
+      display: none;
+    }
+
+    .availability-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 2.5rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #1d1d1f;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      opacity: 1;
+      padding: 0.6rem 1.3rem;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(16px) saturate(120%);
+      -webkit-backdrop-filter: blur(16px) saturate(120%);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-top: 1.5px solid rgba(255, 255, 255, 0.55);
+      border-radius: 100px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+      width: fit-content;
+    }
+
+    .availability-dot {
+      width: 9px;
+      height: 9px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.85);
+      animation: blink-green 2s infinite ease-in-out;
+    }
+
+    @keyframes blink-green {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1.15);
+        box-shadow: 0 0 18px rgba(16, 185, 129, 1), 0 0 8px rgba(16, 185, 129, 0.8);
+      }
+
+      50% {
+        opacity: 0.45;
+        transform: scale(0.85);
+        box-shadow: 0 0 4px rgba(16, 185, 129, 0.2);
+      }
+    }
+
+    .hero-fluid-container {
+      position: absolute;
+      right: 140px;
+      top: 50%;
+      transform: translateY(-70%);
+      width: 280px;
+      height: 280px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-fluid-container {
+        display: none;
+      }
+    }
+
+    .hero-hud-cluster {
+      position: absolute;
+      right: 180px;
+      top: 50%;
+      transform: translateY(-60%);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      z-index: 5;
+    }
+
+    @media (max-width: 1300px) {
+      .hero-hud-cluster {
+        display: none !important;
+      }
+    }
+
+    @media (min-width: 769px) and (max-width: 1300px) {
+      .hero-pill-wrap {
+        right: auto;
+        left: 5%;
+        width: auto;
+        justify-content: flex-start;
+        bottom: 15%;
+      }
+
+      .hero-spline,
+      .hero-orbit {
+        left: 65%;
+        /* Shift robot and background rings together to the right */
+      }
+    }
+
+    .hero-hud-widget {
+      width: 180px;
+      height: 154px;
+      box-sizing: border-box;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(12px) saturate(110%);
+      -webkit-backdrop-filter: blur(12px) saturate(110%);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 8px;
+      box-shadow: var(--shadow-sm);
+      font-family: monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hud-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+      padding-bottom: 6px;
+    }
+
+    .hud-title {
+      font-size: 0.55rem;
+      color: var(--charcoal);
+      opacity: 0.6;
+      letter-spacing: 0.05em;
+    }
+
+    .hud-pulse-dot {
+      width: 6px;
+      height: 6px;
+      background-color: #10B981;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(16, 185, 129, 0.8);
+      animation: blink-green 2.4s infinite ease-in-out;
+    }
+
+    .hud-graph-wrap {
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+
+    .hud-graph-wrap svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .oscilloscope-wave-path {
+      stroke: #FF3C28;
+      stroke-width: 1.5;
+      fill: none;
+      stroke-linecap: round;
+      animation: scroll-wave 4s linear infinite;
+    }
+
+    @keyframes scroll-wave {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-160px);
+      }
+    }
+
+    .radar-sweeper-group {
+      animation: radar-spin 5s linear infinite;
+    }
+
+    @keyframes radar-spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .radar-target-1 {
+      animation: target-pulse-1 5s infinite ease-in-out;
+    }
+
+    .radar-target-2 {
+      animation: target-pulse-2 5s infinite ease-in-out;
+    }
+
+    @keyframes target-pulse-1 {
+
+      0%,
+      100% {
+        opacity: 0.15;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      45% {
+        opacity: 0.15;
+      }
+    }
+
+    @keyframes target-pulse-2 {
+
+      0%,
+      100% {
+        opacity: 0.15;
+      }
+
+      60% {
+        opacity: 1;
+      }
+
+      90% {
+        opacity: 0.15;
+      }
+    }
+
+    .hud-readout {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .hud-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.55rem;
+      color: var(--charcoal);
+      opacity: 0.7;
+    }
+
+    .hud-val {
+      font-weight: bold;
+      color: #000;
+    }
+
+    .hud-val.color-green {
+      color: #10B981;
+    }
+
+    .hud-log-console {
+      width: 100%;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 4px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      padding: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.5rem;
+      color: var(--charcoal);
+      opacity: 0.85;
+      line-height: 1.25;
+      box-sizing: border-box;
+    }
+
+    .log-line {
+      font-family: monospace;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      opacity: 0;
+      transform: translateY(4px);
+      animation: log-fade-in 0.25s forwards ease;
+    }
+
+    @keyframes log-fade-in {
+      to {
+        opacity: 0.65;
+        transform: translateY(0);
+      }
+    }
+
+    /* Desktop-only size increases and shifts */
+    @media (min-width: 1025px) {
+
+      .hero-content,
+      .hero-pill-wrap {
+        left: 6rem;
+      }
+
+      .hero-headline {
+        font-size: clamp(3.2rem, 5vw, 4.6rem);
+      }
+
+      .availability-badge {
+        font-size: 1.0rem;
+        padding: 0.7rem 1.4rem;
+      }
+
+      .availability-dot {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    /* ─── HERO → ABOUT STICKY PANEL TRANSITION ─── */
+    /* Hero stays pinned (sticky). All content below slides up in a wrapper
+       that replicates the site's dot-pattern background, blocking the hero. */
+
+    .page-content-wrap {
+      position: relative;
+      z-index: 20;
+      background-color: #F4F5F6;
+    }
+
+    /* Dot pattern on a pseudo-element so the vignette mask only affects
+       the dots — not the text, cards, or other content inside */
+    .page-content-wrap::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(rgba(13, 17, 23, 0.32) 1.5px, transparent 1.5px);
+      background-size: 14px 14px;
+      -webkit-mask-image: radial-gradient(circle at center, black 0%, rgba(0,0,0,0.65) 50%, transparent 90%);
+      mask-image: radial-gradient(circle at center, black 0%, rgba(0,0,0,0.65) 50%, transparent 90%);
+    }
+
+    /* All direct children of the wrapper sit above the dot layer */
+    .page-content-wrap > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Visual panel leading edge — only on the About section */
+    .about-section {
+      border-radius: 24px 24px 0 0;
+      padding-top: 5rem !important;
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.08);
+      /* Override overflow:hidden from style.css — it creates a hard paint
+         boundary line at the section's bottom edge on the merged page */
+      overflow: visible;
+    }
+
+    /* ── Mobile (phones) ── */
+    @media (max-width: 767px) {
+      /* Smaller radius on mobile — panel still slides but edge is subtler */
+      .about-section {
+        border-radius: 16px 16px 0 0;
+        padding-top: 3.5rem !important;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07);
+      }
+
+      /* Mobile Safari: use -webkit-fill-available so the hero fills the
+         actual visual viewport (excluding browser chrome) */
+      .hero-sticky-container {
+        height: 100vh;
+        height: -webkit-fill-available;
+      }
+    }
+
+    /* ── iPad portrait & landscape (768px – 1024px) ── */
+    @media (min-width: 768px) and (max-width: 1024px) {
+      .about-section {
+        border-radius: 20px 20px 0 0;
+        padding-top: 4.5rem !important;
+      }
+    }
+
+    /* ─── BRAND PROMISE SECTION (merged from about) ─── */
+    .brand-promise-wrap {
+      padding: 7rem 0;
+      background: transparent;
+      position: relative;
+    }
+
+    .brand-promise-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .brand-promise-inner h2 {
+      color: var(--charcoal);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+    }
+
+    .brand-promise-inner p:not(.section-label) {
+      color: var(--charcoal-light);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .brand-badge {
+      background: var(--rust, #1A2026) !important;
+      color: var(--cream, #F4F5F6) !important;
+      padding: 3rem;
+      border-radius: var(--radius-md);
+      text-align: center;
+      height: auto !important;
+    }
+
+    .brand-badge .big-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .brand-badge p {
+      color: rgba(244, 245, 246, 0.85) !important;
+      font-size: 0.85rem;
+    }
+
+    /* ─── AI SECTION (merged from about) ─── */
+    .ai-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .ai-visual {
+      background: var(--kraft);
+      border: var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-md);
+      font-family: 'Special Elite', cursive;
+      font-size: 0.8rem;
+      color: var(--charcoal);
+      letter-spacing: 0.05em;
+      line-height: 2;
+      height: auto !important;
+    }
+
+    .ai-visual .ai-line {
+      opacity: 0.7;
+      padding: 0.2rem 0;
+      border-bottom: 1px dashed rgba(26, 32, 38, 0.15);
+    }
+
+    .ai-visual .ai-line:last-child {
+      border-bottom: none;
+      opacity: 1;
+      color: var(--rust);
+    }
+
+    @media (max-width: 768px) {
+      .brand-promise-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .ai-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* ─── FEATURED WORK (merged from about — horizontal scroll overrides) ─── */
+    .work-scroll-container {
+      width: 100%;
+      overflow: visible;
+      margin-top: 2rem;
+    }
+
+    .featured-work .work-grid {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      gap: 3rem !important;
+      width: max-content;
+      padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
+      padding-right: 15vw;
+    }
+
+    .featured-work .work-card {
+      width: 420px !important;
+      flex-shrink: 0 !important;
+      height: auto !important;
+      min-height: 460px !important;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .featured-work .work-thumb {
+      height: 220px !important;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 767px) {
+      .featured-work .work-grid {
+        gap: 1.5rem !important;
+      }
+      .featured-work .work-card {
+        width: 300px !important;
+        height: auto !important;
+      }
+      .featured-work .work-thumb {
+        height: 200px !important;
+      }
+    }
+
+    @media (max-width: 1024px), (pointer: coarse) {
+      .featured-work {
+        padding: 4rem 0 !important;
+      }
+      .work-scroll-container {
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
+        scrollbar-width: none !important;
+      }
+      .work-scroll-container::-webkit-scrollbar {
+        display: none !important;
+      }
+      .featured-work .work-grid {
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        width: max-content !important;
+        padding-left: 2rem !important;
+        padding-right: 2rem !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body data-page="index">
+  <div class="site-dots" aria-hidden="true"></div>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="loader-logo"><span>VIXORA</span></div>
+      <div class="loader-progress">0%</div>
+    </div>
+  </div>
+
+  <div id="nav-placeholder"></div>
+
+
+  <main id="swup">
+
+    <!-- ═══════ HERO REDESIGN ═══════ -->
+    <div class="hero-sticky-container" style="height: 100vh; position: sticky; top: 0; overflow: hidden;">
+      <section id="hero">
+        <div class="noise-bg" aria-hidden="true"></div>
+        <div class="hero-fade-overlay"
+          style="position: absolute; inset: 0; background: var(--cream); z-index: 6; opacity: 0; pointer-events: none;">
+        </div>
+
+        <div class="hero-content">
+
+          <h1 class="hero-headline"><span style="white-space: nowrap">We take
+              your</span><br>business<br>online.<br><span class="hero-beautiful">Beautifully.</span></h1>
+          <div class="availability-badge">
+            <span class="availability-dot"></span>
+            <span class="availability-text">Available for new projects — <span id="current-month-year"></span></span>
+          </div>
+        </div>
+
+
+        <!-- spline model — starts loading during preloader; preloader waits for it -->
+        <div class="hero-spline" id="hero-spline-wrap">
+          <iframe id="spline-iframe"
+            src="https://my.spline.design/nexbotrobotcharacterconcept-pODYkG49xxwQk2KTjbr4Y0oY/" frameborder="0"
+            width="100%" height="100%"></iframe>
+        </div>
+
+        <!-- decorative orbit ring — labels ride its circumference -->
+        <div class="hero-orbit" aria-hidden="true">
+          <div class="orbit-arm design-arm">
+            <div class="float-wrapper design"><span class="float-label" aria-hidden="true">DESIGN</span></div>
+          </div>
+          <div class="orbit-arm clarity-arm">
+            <div class="float-wrapper clarity"><span class="float-label" aria-hidden="true">CLARITY</span></div>
+          </div>
+          <div class="orbit-arm speed-arm">
+            <div class="float-wrapper speed"><span class="float-label" aria-hidden="true">SPEED</span></div>
+          </div>
+          <div class="orbit-arm precision-arm">
+            <div class="float-wrapper precision"><span class="float-label" aria-hidden="true">PRECISION</span></div>
+          </div>
+        </div>
+
+        <div class="hero-pill-wrap">
+          <a href="contact.html" class="pill-btn" id="pill-hero" aria-label="Let's build">
+            <span class="pill-text">Let's build</span>
+            <span class="pill-icon-wrap" aria-hidden="true">
+              <span class="icon-flipper" id="flipper-hero"></span>
+            </span>
+          </a>
+          <a href="work.html" class="pill-btn pill-btn--black" id="pill-know-more" aria-label="Our Work">
+            <span class="pill-text">Our Work</span>
+            <span class="pill-icon-wrap" aria-hidden="true">
+              <span class="icon-flipper" id="flipper-know-more"><svg width="24" height="24" viewBox="0 0 24 24"
+                  fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg></span>
+            </span>
+          </a>
+        </div>
+
+        <!-- Mobile-only availability badge -->
+        <div class="availability-badge availability-badge-mobile">
+          <span class="availability-dot"></span>
+          <span class="availability-text">Available for new projects &mdash; <span
+              id="current-month-year-mobile"></span></span>
+        </div>
+
+        <script>
+          // Init Hero logic for Vixora
+          function initHero() {
+            if (typeof gsap !== 'undefined') {
+              // Setup initial states
+              gsap.set('.hero-content', { x: -36, opacity: 0 });
+              gsap.set('.hero-fluid-container', { y: 30, opacity: 0 });
+              gsap.set('.float-label', { scale: 0.88, opacity: 0 });
+              gsap.set('.hero-pill-wrap', { y: 18, opacity: 0 });
+
+              // Auto-update availability date
+              const date = new Date();
+              const dateStr = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+              const dateEl = document.getElementById('current-month-year');
+              if (dateEl) dateEl.textContent = dateStr;
+              const dateMobileEl = document.getElementById('current-month-year-mobile');
+              if (dateMobileEl) dateMobileEl.textContent = dateStr;
+
+              // Entrance animation (called after preloader)
+              window.playHeroEntrance = function () {
+                gsap.timeline({ delay: 0.1, onComplete: () => { window.heroEntranceComplete = true; } })
+                  .to('.hero-content', { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out' })
+                  .to('.hero-fluid-container', { y: 0, opacity: 1, duration: 1.1, ease: 'power3.out' }, '-=0.85')
+                  .to('.float-label', { scale: 1, opacity: 1, duration: 0.6, stagger: 0.14, ease: 'power2.out' }, '-=0.6')
+                  .to('.hero-pill-wrap', { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out' }, '-=0.4');
+              };
+
+              // HUD Telemetry value updates
+              setInterval(() => {
+                if (!document.getElementById('hud-console')) return;
+                const frqEl = document.getElementById('hud-val-frq');
+                const tempEl = document.getElementById('hud-val-temp');
+                const angleEl = document.getElementById('hud-radar-angle');
+                const pingEl = document.getElementById('hud-ping-time');
+                if (frqEl) frqEl.textContent = (60.00 + (Math.random() - 0.5) * 0.4).toFixed(2) + ' Hz';
+                if (tempEl) tempEl.textContent = (32.4 + (Math.random() - 0.5) * 0.6).toFixed(1) + '°C';
+                if (angleEl) angleEl.textContent = (Math.random() * 360).toFixed(1) + '°';
+                if (pingEl) pingEl.textContent = Math.floor(12 + Math.random() * 6) + ' ms';
+              }, 1500);
+
+              // HUD log console stream
+              const consoleEl = document.getElementById('hud-console');
+              if (consoleEl) {
+                const LOG_MESSAGES = [
+                  'SYS: SYNCING CORE...', 'PIPELINE: ACTIVE (12ms)', 'DATA STREAM: SYNCED',
+                  'RENDER ENGINE: OK', 'VIXORA-NET: SECURE', 'GATEWAY: OK [200]',
+                  'SHIELD: LEVEL 100%', 'BUFFER: 0ms LATENCY', 'SESSION: ACTIVE'
+                ];
+                setInterval(() => {
+                  if (!document.getElementById('hud-console')) return;
+                  const logLine = document.createElement('div');
+                  logLine.className = 'log-line';
+                  logLine.textContent = '> ' + LOG_MESSAGES[Math.floor(Math.random() * LOG_MESSAGES.length)];
+                  consoleEl.appendChild(logLine);
+                  while (consoleEl.children.length > 4) consoleEl.removeChild(consoleEl.firstChild);
+                }, 3200);
+              }
+
+              /* ── ICONS ─────────────────────────────────────── */
+              var ICONS = [
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.13 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.09 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
+                '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>'
+              ];
+
+              function initPill(el, startIdx) {
+                if (!el) return;
+                var idx = startIdx;
+                el.innerHTML = ICONS[idx];
+                setInterval(function () {
+                  var next = (idx + 1) % ICONS.length;
+                  el.style.transition = 'transform 210ms ease-in';
+                  el.style.transform = 'rotateX(90deg)';
+                  setTimeout(function () {
+                    el.innerHTML = ICONS[next];
+                    idx = next;
+                    el.style.transition = 'transform 210ms ease-out';
+                    el.style.transform = 'rotateX(0deg)';
+                  }, 210);
+                }, 2600);
+              }
+
+              initPill(document.getElementById('flipper-hero'), 0);
+
+              /* ── SCROLL DOT ─────────────────────────────────── */
+              gsap.to('#scroll-dot', { y: 76, duration: 2.4, repeat: -1, yoyo: true, ease: 'power1.inOut' });
+
+              /* ── MAGNETIC BUTTON ────────────────────────────── */
+              document.querySelectorAll('.magnetic-zone').forEach(zone => {
+                const btn = zone.querySelector('.pill-btn');
+                if (!btn) return;
+
+                zone.addEventListener('mousemove', (e) => {
+                  const r = btn.getBoundingClientRect();
+                  const cx = r.left + r.width / 2;
+                  const cy = r.top + r.height / 2;
+                  const dx = (e.clientX - cx) * 0.38;
+                  const dy = (e.clientY - cy) * 0.38;
+                  btn.style.transform = `translate(${dx}px, ${dy}px) scale(1.025)`;
+                });
+
+                zone.addEventListener('mouseleave', () => {
+                  btn.style.transform = 'translate(0, 0) scale(1)';
+                });
+              });
+
+              /* ── LABEL DRIFT (Responsive Orbit Arm Counter-Rotation) ── */
+              [
+                { arm: '.design-arm', lbl: '.design-arm .float-wrapper', baseAngle: 220, rot: 6, d: 5.2, delay: 0 },
+                { arm: '.clarity-arm', lbl: '.clarity-arm .float-wrapper', baseAngle: 195, rot: -5, d: 4.8, delay: -1.2 },
+                { arm: '.speed-arm', lbl: '.speed-arm .float-wrapper', baseAngle: 320, rot: -6, d: 5.5, delay: -2.5 },
+                { arm: '.precision-arm', lbl: '.precision-arm .float-wrapper', baseAngle: 350, rot: 5, d: 4.5, delay: -0.8 }
+              ].forEach(function (p) {
+                gsap.set(p.arm, { rotation: p.baseAngle, force3D: true, z: 0.1 });
+                gsap.set(p.lbl, { xPercent: -50, yPercent: -50, rotation: -p.baseAngle, force3D: true, z: 0.1 });
+                gsap.to(p.arm, { rotation: p.baseAngle + p.rot, duration: p.d, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: p.delay });
+                gsap.to(p.lbl, { rotation: -(p.baseAngle + p.rot), duration: p.d, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: p.delay });
+              });
+
+              /* ── HERO ORBIT INITIALIZATION ── */
+              var orbitWrap = document.querySelector('.hero-orbit');
+              if (orbitWrap) {
+                gsap.set(orbitWrap, { x: 0, y: 0, xPercent: -50, yPercent: -50 });
+              }
+
+              // Allow the preloader logic in shared.js to call playHeroEntrance
+              // We expose initHeroHands for compatibility with shared.js which might call it
+              window.initHeroHands = window.playHeroEntrance;
+            }
+          }
+
+          // Execute initialization
+          document.addEventListener("DOMContentLoaded", function () {
+            initHero();
+
+            // ── SPLINE PAUSE WHEN HERO IS COVERED ──────────────────────
+            // Once the About panel fully slides over the hero, stop the
+            // Spline WebGL render to save GPU. Restore it on scroll back up.
+            const splineIframe = document.getElementById('spline-iframe');
+            const heroSection  = document.getElementById('hero');
+
+            if (splineIframe) {
+              const cachedSrc = splineIframe.src;
+              let splinePaused = false;
+
+              // IntersectionObserver can't detect sticky occlusion, so use
+              // scroll position: once scrollY > 85% of viewport height the
+              // About panel fully covers the hero — kill the WebGL render.
+              function checkSplinePause() {
+                const covered = window.scrollY > window.innerHeight * 0.85;
+                if (covered && !splinePaused) {
+                  splineIframe.src = '';
+                  splinePaused = true;
+                } else if (!covered && splinePaused) {
+                  splineIframe.src = cachedSrc;
+                  splinePaused = false;
+                }
+              }
+
+              // Attach to Lenis if ready, otherwise native scroll
+              function attachSplineScroll() {
+                if (window._lenis) {
+                  window._lenis.on('scroll', checkSplinePause);
+                } else {
+                  window.addEventListener('scroll', checkSplinePause, { passive: true });
+                }
+              }
+              // Lenis initialises on DOMContentLoaded too — give it a tick
+              setTimeout(attachSplineScroll, 100);
+            }
+          });
+
+        </script>
+      </section>
+
+    </div> <!-- /.hero-sticky-container -->
+
+    <!-- All scrolling content wrapped so it slides over the sticky hero
+         with the correct site background (dot pattern + cream base) -->
+    <div class="page-content-wrap">
+    <!-- ═══════ ABOUT VIXORA ═══════ -->
+    <section class="about-section" id="about">
+      <div class="container">
+
+        <!-- Split: Text + Identity Card -->
+        <div class="about-split">
+
+          <!-- Left: Text -->
+          <div class="about-left">
+            <p class="section-label" id="about-label">About Vixora</p>
+            <h2 class="about-headline" id="about-headline">A studio<br>obsessed<br>with craft.</h2>
+            <p class="about-body" id="about-body-1">We are a web design and development studio rooted in a single belief — every business deserves a digital presence that actually works. We are not a template shop. Every project is built from scratch, shaped entirely around your brand's identity, your audience, and your ambitions.</p>
+            <p class="about-body" id="about-body-2" style="margin-top: 1.2rem;">From the first discovery call through to launch day, every decision we make is intentional. Every pixel, every line of code, deliberate.</p>
+            <a href="contact.html" class="btn btn-primary" id="about-cta" style="margin-top: 2.2rem; display: inline-block;"><span>Work With Us</span></a>
+          </div>
+
+          <!-- Right: Identity Card -->
+          <div class="about-right" id="about-card-wrap">
+            <div class="card about-id-card">
+              <div class="about-id-top">
+                <span class="about-id-badge">VIXORA&#8482;</span>
+                <span class="about-id-year">Est. 2024</span>
+              </div>
+              <hr class="about-id-divider" />
+              <div class="about-id-values">
+                <div class="about-id-value"><span class="id-value-icon">&#10022;</span>Design-first thinking</div>
+                <div class="about-id-value"><span class="id-value-icon">&#8984;</span>Engineering precision</div>
+                <div class="about-id-value"><span class="id-value-icon">&#8594;</span>AI-accelerated workflow</div>
+                <div class="about-id-value"><span class="id-value-icon">&#9678;</span>On-time, every time</div>
+              </div>
+              <hr class="about-id-divider" />
+              <p class="about-id-quote">"We don't just build websites.<br>We build digital experiences."</p>
+            </div>
+          </div>
+
+        </div><!-- /about-split -->
+
+        <!-- Stats Row -->
+        <div class="about-stats-row" id="about-stats">
+          <div class="about-stat">
+            <div class="stat-display">
+              <span class="stat-num" data-target="10">0</span>
+              <span class="stat-suffix">+</span>
+            </div>
+            <p>Projects Delivered</p>
+          </div>
+          <div class="about-stat-divider"></div>
+          <div class="about-stat">
+            <div class="stat-display">
+              <span class="stat-num" data-target="100">0</span>
+              <span class="stat-suffix">%</span>
+            </div>
+            <p>Custom Work, Always</p>
+          </div>
+          <div class="about-stat-divider"></div>
+          <div class="about-stat">
+            <div class="stat-display">
+              <span class="stat-num" data-target="3">0</span>
+            </div>
+            <p>Core Disciplines</p>
+          </div>
+          <div class="about-stat-divider"></div>
+          <div class="about-stat">
+            <div class="stat-display">
+              <span class="stat-suffix" style="margin-right: 0.05em;">&lt;</span>
+              <span class="stat-num" data-target="24">0</span>
+              <span class="stat-suffix">h</span>
+            </div>
+            <p>Response Time</p>
+          </div>
+        </div><!-- /about-stats-row -->
+
+      </div><!-- /container -->
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+          gsap.registerPlugin(ScrollTrigger);
+
+          // ── Section label slides in ──
+          gsap.fromTo('#about-label',
+            { x: -30, opacity: 0 },
+            {
+              x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+              scrollTrigger: { trigger: '#about', start: 'top 82%', toggleActions: 'play none none reverse' }
+            }
+          );
+
+          // ── Headline: line-by-line reveal ──
+          const headline = document.getElementById('about-headline');
+          if (headline) {
+            const lines = headline.innerHTML.split(/<br\s*\/?>/i);
+            headline.innerHTML = lines.map(line =>
+              `<span style="display:block; overflow:hidden; line-height:1.05;"><span class="about-line-inner" style="display:block;">${line}</span></span>`
+            ).join('');
+
+            gsap.fromTo('.about-line-inner',
+              { y: '110%', opacity: 0 },
+              {
+                y: '0%', opacity: 1, duration: 1.1, ease: 'expo.out', stagger: 0.13,
+                scrollTrigger: { trigger: '#about', start: 'top 78%', toggleActions: 'play none none reverse' }
+              }
+            );
+          }
+
+          // ── Body paragraphs and CTA stagger in ──
+          gsap.fromTo(['#about-body-1', '#about-body-2', '#about-cta'],
+            { y: 28, opacity: 0 },
+            {
+              y: 0, opacity: 1, duration: 1, ease: 'power3.out', stagger: 0.18,
+              scrollTrigger: { trigger: '#about', start: 'top 72%', toggleActions: 'play none none reverse' }
+            }
+          );
+
+          // ── Identity card: slides + slight rotate in from right ──
+          gsap.fromTo('#about-card-wrap',
+            { x: 60, opacity: 0, rotate: 1.5 },
+            {
+              x: 0, opacity: 1, rotate: 0, duration: 1.4, ease: 'expo.out',
+              scrollTrigger: { trigger: '#about-card-wrap', start: 'top 85%', toggleActions: 'play none none reverse' }
+            }
+          );
+
+          // ── Values inside card stagger in ──
+          gsap.fromTo('.about-id-value',
+            { x: 20, opacity: 0 },
+            {
+              x: 0, opacity: 1, duration: 0.65, stagger: 0.12, ease: 'power2.out',
+              scrollTrigger: { trigger: '#about-card-wrap', start: 'top 78%', toggleActions: 'play none none reverse' }
+            }
+          );
+
+          // ── Stats row slides up ──
+          gsap.fromTo('#about-stats',
+            { y: 60, opacity: 0 },
+            {
+              y: 0, opacity: 1, duration: 1.2, ease: 'expo.out',
+              scrollTrigger: { trigger: '#about-stats', start: 'top 90%', toggleActions: 'play none none reverse' }
+            }
+          );
+
+          // ── Counter animations ──
+          document.querySelectorAll('#about-stats .stat-num').forEach(el => {
+            const target = parseInt(el.dataset.target, 10);
+            const obj = { val: 0 };
+            gsap.to(obj, {
+              val: target,
+              duration: 2.2,
+              ease: 'power2.out',
+              onUpdate: () => { el.textContent = Math.round(obj.val); },
+              scrollTrigger: { trigger: '#about-stats', start: 'top 88%', toggleActions: 'play none none none' }
+            });
+          });
+        });
+      </script>
+    </section>
+
+    <!-- ═══════ WHAT WE DO ═══════ -->
+    <section class="what-we-do-standalone" id="what-we-do">
+      <div class="container">
+        <p class="section-label" id="wwd-label">What We Do</p>
+        <h2 id="wwd-headline">Craft over shortcuts.</h2>
+
+        <div class="what-cards-grid" id="wwd-cards">
+          <div class="card what-card">
+            <div class="what-card-icon">&#10022;</div>
+            <h3>Design</h3>
+            <p>We translate your brand identity into visual languages that resonate. Every layout and typographic choice
+              is intentional, ensuring an intuitive and memorable user experience from the moment they land.</p>
+          </div>
+          <div class="card what-card">
+            <div class="what-card-icon">&#8984;</div>
+            <h3>Build</h3>
+            <p>Clean, semantic, and highly optimized code. Performance is woven into the architecture, ensuring your site
+              loads instantly and adapts flawlessly on every screen. Zero compromises on speed or reliability.</p>
+          </div>
+          <div class="card what-card">
+            <div class="what-card-icon">&#8594;</div>
+            <h3>Deliver</h3>
+            <p>We handle the entire deployment process, ensuring your project is live, tested, and ready for the world.
+              You walk away with a robust digital asset that truly works for your business from day one.</p>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+
+          gsap.registerPlugin(ScrollTrigger);
+
+          gsap.fromTo('#wwd-label',
+            { x: -30, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+              scrollTrigger: { trigger: '#what-we-do', start: 'top 82%', toggleActions: 'play none none reverse' } }
+          );
+
+          const wh = document.getElementById('wwd-headline');
+          if (wh) {
+            const words = wh.innerText.split(' ');
+            wh.innerHTML = words.map(w =>
+              `<span style="display:inline-block; overflow:hidden; vertical-align:bottom; margin-right:0.25em;"><span class="wwd-word" style="display:inline-block;">${w}</span></span>`
+            ).join('');
+            gsap.fromTo('.wwd-word',
+              { y: '110%', opacity: 0 },
+              { y: '0%', opacity: 1, duration: 1.1, ease: 'expo.out', stagger: 0.1,
+                scrollTrigger: { trigger: '#what-we-do', start: 'top 78%', toggleActions: 'play none none reverse' } }
+            );
+          }
+
+          gsap.fromTo('#wwd-cards .what-card',
+            { y: 50, opacity: 0, rotate: 1 },
+            { y: 0, opacity: 1, rotate: 0, duration: 1, ease: 'expo.out', stagger: 0.15,
+              scrollTrigger: { trigger: '#wwd-cards', start: 'top 85%', toggleActions: 'play none none reverse' } }
+          );
+        });
+      </script>
+    </section>
+
+    <!-- ═══════ BRAND PROMISE ═══════ -->
+    <section class="brand-promise-wrap">
+      <div class="container">
+        <div class="brand-promise-inner">
+          <div class="reveal">
+            <p class="section-label">Our Promise</p>
+            <h2 class="reveal-text-brand">Built around you, not a template.</h2>
+            <p style="margin-top: 1.2rem;">Every website we engineer is shaped around the DNA of your brand—your colors,
+              voice, and audience. We reject cookie-cutter templates in favor of bespoke digital craft, ensuring a
+              measurable difference from the very first conversation through to launch day.</p>
+          </div>
+
+          <script>
+            document.addEventListener('DOMContentLoaded', () => {
+              if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.registerPlugin(ScrollTrigger);
+                const target = document.querySelector('.brand-promise-wrap .reveal-text-brand');
+                if (target) {
+                  const words = target.innerText.split(' ');
+                  target.innerHTML = words.map(w => `<span style="display:inline-block; overflow:hidden; vertical-align: bottom;"><span class="word-inner-brand" style="display:inline-block; transform: translateY(100%); opacity: 0;">${w}</span></span>`).join(' ');
+
+                  gsap.to('.brand-promise-wrap .word-inner-brand', {
+                    y: 0, opacity: 1, duration: 1.6, ease: 'expo.out', stagger: 0.08,
+                    scrollTrigger: { trigger: target, start: 'top 92%', toggleActions: 'play none none reverse' }
+                  });
+
+                  gsap.from('.brand-badge', {
+                    y: 80, scale: 0.8, opacity: 0, duration: 1.5, ease: 'expo.out',
+                    scrollTrigger: { trigger: '.brand-badge', start: 'top 95%', toggleActions: 'play none none reverse' }
+                  });
+                }
+              }
+            });
+          </script>
+          <div class="card brand-badge">
+            <div class="big-num">100%</div>
+            <p>Custom. Every time.<br>No generic templates. No shortcuts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ AI SECTION ═══════ -->
+    <section class="ai-section" style="padding: 7rem 0;">
+      <div class="container">
+        <div class="ai-inner">
+          <div class="reveal">
+            <p class="section-label">Our Process</p>
+            <h2>Powered by AI. Built for speed.</h2>
+            <p style="margin-top: 1.2rem; margin-bottom: 1.5rem;">We leverage cutting-edge AI to accelerate our workflow
+              and eliminate technical friction. This allows us to focus strictly on creative craft, delivering sharper,
+              more refined websites in a fraction of the traditional timeline. That is the distinct advantage of a
+              future-facing studio.</p>
+            <a href="contact.html" class="btn btn-primary"><span>Start a Project</span></a>
+          </div>
+          <div class="card ai-visual reveal">
+            <div class="ai-line">&#8594; Discovery &amp; strategy call</div>
+            <div class="ai-line">&#8594; Visual direction &amp; wireframing</div>
+            <div class="ai-line">&#8594; Bespoke design mockup</div>
+            <div class="ai-line">&#8594; High-performance development</div>
+            <div class="ai-line">&#8594; SEO &amp; performance audit</div>
+            <div class="ai-line">&#8594; Cross-device QA testing</div>
+            <div class="ai-line">&#8594; Final review &amp; incorporation</div>
+            <div class="ai-line">&#8594; Seamless deployment</div>
+            <div class="ai-line">&#8594; Post-launch support</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ FEATURED WORK ═══════ -->
+    <section class="featured-work">
+      <div class="container">
+        <p class="section-label reveal">Selected Work</p>
+        <h2 class="reveal">Things we've made.</h2>
+        <p class="intro reveal">A curated selection of digital experiences built from the ground up, shaped around each
+          client's unique brand identity and business objectives.</p>
+      </div>
+
+      <div class="work-scroll-container">
+        <div class="work-grid">
+
+          <!-- Project 1: 3M's -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb"
+              style="background-image: url('assets/screenshots/the3ms.png'); background-size: cover; background-position: top center;">
+            </div>
+            <div class="work-info">
+              <h3>The 3M's Media</h3>
+              <p>A high-impact landing page for a marketing agency. Built to establish authority, capture attention
+                with bold typography, and guide visitors toward conversion with strategic calls-to-action.</p>
+              <div class="work-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+                <span class="tag">React</span>
+              </div>
+              <a href="https://the3mmedia.netlify.app/" target="_blank" rel="noopener" class="work-link">Visit Site &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Project 2: Kalpavruksha -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb"
+              style="background-image: url('assets/screenshots/Kalpavruksha.png'); background-size: cover; background-position: top center;">
+            </div>
+            <div class="work-info">
+              <h3>Kalpavruksha Academy</h3>
+              <p>A comprehensive platform for a coaching centre. We created a warm, structured environment that builds
+                trust and makes course discovery as effortless as possible for prospective students.</p>
+              <div class="work-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+                <span class="tag">React</span>
+              </div>
+              <a href="https://kalpavrukshaacademy.netlify.app/" target="_blank" rel="noopener" class="work-link">Visit Site &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Project 3: Ramkrishna Furniture -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb"
+              style="background-image: url('assets/screenshots/RK.png'); background-size: cover; background-position: top center;">
+            </div>
+            <div class="work-info">
+              <h3>Ramkrishna Furniture</h3>
+              <p>An elegant digital showroom for a premium furniture retailer. We prioritized high-fidelity imagery
+                and smooth navigation to reflect the physical craftsmanship of their collections.</p>
+              <div class="work-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+                <span class="tag">React</span>
+              </div>
+              <a href="https://ramkrishnafurniture.netlify.app/" target="_blank" rel="noopener" class="work-link">Visit Site &rarr;</a>
+            </div>
+          </div>
+
+          <!-- Project 4: Multistar -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb"
+              style="background-image: url('assets/screenshots/Kalpak C.png'); background-size: cover; background-position: top center;">
+            </div>
+            <div class="work-info">
+              <h3>Multistar &mdash; Kalpak</h3>
+              <p>A dynamic personal portfolio for a multi-talented performer. A visually rich, stylized experience
+                that unapologetically showcases their unique personality and diverse body of work.</p>
+              <div class="work-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JS</span>
+                <span class="tag">React</span>
+              </div>
+              <a href="https://multistar-kalpak.netlify.app/" target="_blank" rel="noopener" class="work-link">Visit Site &rarr;</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="container">
+        <a href="work.html" class="btn btn-primary reveal" style="margin-top: 4rem; display: inline-block;"><span>See all our work &rarr;</span></a>
+      </div>
+
+      <script>
+        // Feature Work Horizontal Scroll
+        document.addEventListener('DOMContentLoaded', () => {
+          if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+            gsap.registerPlugin(ScrollTrigger);
+            const grid = document.querySelector('.work-grid');
+            const container = document.querySelector('.featured-work');
+
+            let mm = gsap.matchMedia();
+
+            mm.add("(min-width: 1025px) and (hover: hover) and (pointer: fine)", () => {
+              const scrollWidth = grid.scrollWidth - window.innerWidth + (window.innerWidth * 0.15);
+
+              gsap.to(grid, {
+                x: -scrollWidth,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: container,
+                  start: 'top top',
+                  end: `+=${scrollWidth}`,
+                  scrub: true,
+                  pin: true,
+                  anticipatePin: 1,
+                  invalidateOnRefresh: true
+                }
+              });
+            });
+          }
+        });
+      </script>
+    </section>
+
+  </main>
+
+
+
+  <script>
+    // --- Nav Theme Detection ---
+    const navElement = document.getElementById('vixora-nav');
+    const pageSections = document.querySelectorAll('section, footer');
+
+    // Explicitly map dark sections (where icons should be white)
+    const darkSections = ['.hero-redesign', '.lab-section', 'footer'];
+
+    const themeObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Check if the current section is in our dark list
+          const isDark = darkSections.some(selector => entry.target.matches(selector));
+
+          if (isDark) {
+            navElement.classList.add('nav-dark-theme');
+            navElement.classList.remove('nav-light-theme');
+          } else {
+            navElement.classList.add('nav-light-theme');
+            navElement.classList.remove('nav-dark-theme');
+          }
+        }
+      });
+    }, {
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    });
+
+    pageSections.forEach(section => themeObserver.observe(section));
+  </script>
+
+  <!-- Footer injected by JS -->
+  <div id="footer-placeholder"></div>
+
+    </div> <!-- /.page-content-wrap -->
+</body>
+
+</html>

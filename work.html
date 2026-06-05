@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vixora — Our Work</title>
+  <meta name="description" content="A small but growing collection of websites Vixora has built from scratch." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <!-- Preload high-priority hero background ASAP -->
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js" defer></script>
+  <script src="shared.js" defer></script>
+
+  <style>
+    .page-banner { padding: 6rem 0 3rem; background: transparent; }
+    .page-banner h1 { font-style: italic; }
+
+    .work-full-section {
+      padding: 1rem 0 6rem;
+      background: transparent;
+    }
+
+    /* Thumbnail colour coding per project */
+    .thumb-3ms { background-image: url('assets/screenshots/the3ms.png'); background-position: center top; background-size: cover; background-repeat: no-repeat; }
+    .thumb-kalpa { background-image: url('assets/screenshots/Kalpavruksha.png'); background-position: center top; background-size: cover; background-repeat: no-repeat; }
+    .thumb-multi { background-image: url('assets/screenshots/Kalpak%20C.png'); background-position: center top; background-size: cover; background-repeat: no-repeat; }
+    .thumb-ramkrishna { background-image: url('assets/screenshots/RK.png'); background-position: center top; background-size: cover; background-repeat: no-repeat; }
+
+    .work-thumb-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .video-placeholder {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-top: 0.75rem;
+      opacity: 0.5;
+      border: 1px solid currentColor;
+      padding: 0.3rem 0.75rem;
+      border-radius: var(--radius-md);
+    }
+    .coming-soon-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(26,32,38,0.55);
+      color: var(--kraft);
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-md);
+    }
+
+    /* Card visit link button */
+    .card-visit-btn {
+      display: inline-block;
+      margin-top: 1rem;
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--rust);
+      padding: 0.5rem 1.2rem;
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      transition: color 0.3s;
+    }
+    .card-visit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: var(--rust-dark);
+      transition: left 0.3s ease;
+      z-index: 0;
+    }
+    .card-visit-btn:hover::before { left: 0; }
+    .card-visit-btn span { position: relative; z-index: 1; }
+  </style>
+</head>
+<body data-page="work">
+  <div class="site-dots" aria-hidden="true"></div>
+
+  <div id="cursor"></div>
+  <div id="nav-placeholder"></div>
+
+  <main id="swup">
+
+    <!-- ═══════ PAGE BANNER ═══════ -->
+    <section class="page-banner">
+      <div class="container">
+        <p class="section-label reveal">Portfolio</p>
+        <h1 class="reveal" style="font-style: italic;">Things we've made.</h1>
+        <p class="reveal" style="max-width: 540px; margin-top: 1rem; font-size: 1.05rem;">A curated showcase of digital experiences built from the ground up, shaped around each client's unique brand identity and technical requirements.</p>
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="design">Design</button>
+          <button class="filter-btn" data-filter="dev">Dev</button>
+          <button class="filter-btn" data-filter="both">Both</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ WORK GRID ═══════ -->
+    <section class="work-full-section">
+      <div class="container">
+        <div class="work-full-grid">
+
+          <!-- Project 1: The 3M's Media -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb thumb-3ms" style="position: relative;">
+              <div class="coming-soon-badge">Full-stack coming soon</div>
+            </div>
+            <div class="work-info">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; flex-wrap: gap;">
+                <h3>The 3M's Media</h3>
+                <span class="tag" style="flex-shrink: 0; margin-left: 0.5rem;">Both</span>
+              </div>
+              <p>A high-impact landing page for a marketing agency. Built to establish authority, capture attention with bold typography, and guide visitors seamlessly toward conversion.</p>
+              <div class="work-tags" style="margin-top: 1rem;">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">React</span>
+              </div>
+              <span class="tag tag-muted" style="margin-top: 0.75rem; display: inline-block;">Full-stack features coming soon</span>
+              <br />
+              <a href="https://the3mmedia.netlify.app/" target="_blank" rel="noopener" class="card-visit-btn"><span>Visit Site →</span></a>
+            </div>
+          </div>
+
+          <!-- Project 2: Kalpavruksha Academy -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb thumb-kalpa" style="position: relative;">
+              <div class="coming-soon-badge">Full-stack coming soon</div>
+            </div>
+            <div class="work-info">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                <h3>Kalpavruksha Academy</h3>
+                <span class="tag" style="flex-shrink: 0; margin-left: 0.5rem;">Both</span>
+              </div>
+              <p>A comprehensive platform for an educational coaching centre. We created a warm, structured environment that builds trust and makes course discovery effortless.</p>
+              <div class="work-tags" style="margin-top: 1rem;">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">React</span>
+              </div>
+              <span class="tag tag-muted" style="margin-top: 0.75rem; display: inline-block;">Full-stack features coming soon</span>
+              <br />
+              <a href="https://kalpavrukshaacademy.netlify.app/" target="_blank" rel="noopener" class="card-visit-btn"><span>Visit Site →</span></a>
+            </div>
+          </div>
+
+          <!-- Project 3: Multistar — Kalpak -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb thumb-multi" style="position: relative;">
+              <div class="coming-soon-badge">Full-stack coming soon</div>
+            </div>
+            <div class="work-info">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                <h3>Multistar — Kalpak</h3>
+                <span class="tag" style="flex-shrink: 0; margin-left: 0.5rem;">Both</span>
+              </div>
+              <p>A dynamic personal portfolio for a multi-talented performer. A visually rich, stylized experience that unapologetically showcases their unique personality and body of work.</p>
+              <div class="work-tags" style="margin-top: 1rem;">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">React</span>
+              </div>
+              <span class="tag tag-muted" style="margin-top: 0.75rem; display: inline-block;">Full-stack features coming soon</span>
+              <br />
+              <a href="https://multistar-kalpak.netlify.app/" target="_blank" rel="noopener" class="card-visit-btn"><span>Visit Site →</span></a>
+            </div>
+          </div>
+          <!-- Project 4: Ramkrishna Furniture -->
+          <div class="card work-card project-card" data-category="both">
+            <div class="work-thumb thumb-ramkrishna" style="position: relative;">
+              <div class="coming-soon-badge">Full-stack coming soon</div>
+            </div>
+            <div class="work-info">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                <h3>Ramkrishna Furniture</h3>
+                <span class="tag" style="flex-shrink: 0; margin-left: 0.5rem;">Both</span>
+              </div>
+              <p>An elegant digital showroom for a premium furniture retailer. We prioritized high-fidelity imagery and smooth navigation to reflect their physical craftsmanship.</p>
+              <div class="work-tags" style="margin-top: 1rem;">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">React</span>
+              </div>
+              <span class="tag tag-muted" style="margin-top: 0.75rem; display: inline-block;">Full-stack features coming soon</span>
+              <br />
+              <a href="https://ramkrishnafurniture.netlify.app/" target="_blank" rel="noopener" class="card-visit-btn"><span>Visit Site →</span></a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════ CTA BAND ═══════ -->
+    <section style="padding: 5rem 0; background: transparent; text-align: center;">
+      <div class="container">
+        <p class="section-label reveal" style="color: var(--rust);">Next Up</p>
+        <h2 class="reveal" style="color: var(--charcoal); margin-bottom: 1.2rem;">Want to be on this list?</h2>
+        <p class="reveal" style="color: var(--charcoal-light); max-width: 460px; margin: 0 auto 2rem;">Whether you have a formal brief or just a rough idea, tell us what you're working on. We'd love to help bring your vision to life.</p>
+        <a href="contact.html" class="btn btn-primary reveal"><span>Get in Touch →</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+</body>
+</html>
