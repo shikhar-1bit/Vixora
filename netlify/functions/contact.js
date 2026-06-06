@@ -14,15 +14,21 @@ exports.handler = async (event) => {
       return { statusCode: 500, body: 'Server configuration error' };
     }
 
-    const text = `
-✨ *New Contact Form Submission*
+    const escapeHTML = (str) => {
+      if (!str) return '';
+      return str.toString()
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    };
 
-👤 *Name:* ${name}
-📧 *Email:* ${email}
-💼 *Project:* ${projectType}
-📝 *Message:*
-${message}
-    `;
+    const text = `✨ <b>New Contact Form Submission</b>
+
+👤 <b>Name:</b> ${escapeHTML(name)}
+📧 <b>Email:</b> ${escapeHTML(email)}
+💼 <b>Project:</b> ${escapeHTML(projectType)}
+📝 <b>Message:</b>
+${escapeHTML(message)}`;
 
     const telegramUrl = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
     
@@ -32,7 +38,7 @@ ${message}
       body: JSON.stringify({
         chat_id: CHAT_ID,
         text: text,
-        parse_mode: 'Markdown'
+        parse_mode: 'HTML'
       })
     });
 
