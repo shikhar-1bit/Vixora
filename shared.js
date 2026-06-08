@@ -1,9 +1,6 @@
-/* ═══════════════════════════════════════════════════
-   VIXORA — SHARED JAVASCRIPT
-   Nav injection, Footer injection, Cursor, Lenis, GSAP global setup
-   ═══════════════════════════════════════════════════ */
 
-// Immediately add skeleton-active class if not index page to avoid content flash
+
+
 if (typeof document !== 'undefined') {
   const applySkeletonActive = () => {
     const pageType = document.body ? document.body.dataset.page : null;
@@ -47,14 +44,14 @@ const NAV_HTML = `
 </nav>
 `;
 
-// ─── FOOTER HTML ───
+
 const FOOTER_HTML = `
 <footer id="vixora-footer">
   <p>Made with care by Vixora &nbsp;·&nbsp; ${new Date().getFullYear()}</p>
 </footer>
 `;
 
-// ─── SCROLL INDICATOR HTML ───
+
 const SCROLL_INDICATOR_HTML = `
 <div class="global-scroll-indicator">
   <span class="scroll-text">SCROLL</span>
@@ -66,19 +63,19 @@ const SCROLL_INDICATOR_HTML = `
 </div>
 `;
 
-// ─── INJECT NAV & FOOTER ───
+
 function injectSharedElements() {
   const navPlaceholder = document.getElementById('nav-placeholder');
   const footerPlaceholder = document.getElementById('footer-placeholder');
   if (navPlaceholder) navPlaceholder.outerHTML = NAV_HTML;
   if (footerPlaceholder) footerPlaceholder.outerHTML = FOOTER_HTML;
 
-  // Inject scroll indicator
+  
   if (!document.querySelector('.global-scroll-indicator') && document.body.dataset.page !== 'index') {
     document.body.insertAdjacentHTML('beforeend', SCROLL_INDICATOR_HTML);
   }
 
-  // Mark active page
+  
   const currentPage = document.body.dataset.page;
   document.querySelectorAll('[data-page]').forEach(link => {
     if (link.dataset.page === currentPage) link.classList.add('active');
@@ -86,7 +83,7 @@ function injectSharedElements() {
 
 
 
-  // Scroll Listener for Split Nav and Scroll Indicator
+  
   window.addEventListener('scroll', () => {
     const nav = document.getElementById('vixora-nav');
     if (nav) {
@@ -107,27 +104,27 @@ function injectSharedElements() {
     }
   });
 
-  // Mobile Logo Expansion Logic
+  
   const navLogo = document.querySelector('.nav-logo');
   if (navLogo) {
     navLogo.addEventListener('click', (e) => {
       if (window.innerWidth <= 768) {
         if (!navLogo.classList.contains('mobile-expanded')) {
-          e.preventDefault(); // Stop navigation, just expand
+          e.preventDefault(); 
           navLogo.classList.add('mobile-expanded');
           
-          // Auto-collapse after 3.5 seconds
+          
           setTimeout(() => {
             navLogo.classList.remove('mobile-expanded');
           }, 3500);
         }
-        // If already expanded, let the link navigate normally
+        
       }
     });
   }
 }
 
-// ─── DROPDOWN MENU LOGIC ───
+
 let isNavOpen = false;
 
 function toggleNavMenu() {
@@ -146,7 +143,7 @@ function toggleNavMenu() {
 }
 
 
-// ─── LENIS SMOOTH SCROLL ───
+
 function initLenis() {
   if (typeof Lenis === 'undefined') return;
   const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
@@ -162,7 +159,7 @@ function initLenis() {
   }
 }
 
-// ─── GSAP SCROLL REVEALS ───
+
 function initScrollReveals() {
   if (!window.gsap || !window.ScrollTrigger) return;
 
@@ -172,7 +169,7 @@ function initScrollReveals() {
     gsap.to('#global-scroll-dot', { y: 76, duration: 2.4, repeat: -1, yoyo: true, ease: 'power1.inOut' });
   }
 
-  // Generic reveal elements
+  
   gsap.utils.toArray('.reveal').forEach(el => {
     gsap.fromTo(el,
       { opacity: 0, y: 100, scale: 0.92 },
@@ -183,7 +180,7 @@ function initScrollReveals() {
     );
   });
 
-  // Staggered card groups
+  
   gsap.utils.toArray('.cards-grid, .snippets-grid, .sticky-notes-grid').forEach(grid => {
     const children = grid.children;
     gsap.fromTo(children,
@@ -199,18 +196,18 @@ function initScrollReveals() {
 
 }
 
-// ─── HERO WORD ANIMATION ───
+
 function initHeroAnimation() {
   if (!window.gsap) return;
 
   const headline = document.querySelector('.hero-split');
   const nav = document.getElementById('vixora-nav');
 
-  // Set initial states if not done in CSS
+  
   gsap.set('.reveal', { opacity: 0, y: 100, scale: 0.92 });
   if (nav) gsap.set(nav, { opacity: 0, y: -40, scale: 0.96 });
 
-  // 1. Nav entry
+  
   if (nav) {
     gsap.to(nav, {
       opacity: 1,
@@ -221,7 +218,7 @@ function initHeroAnimation() {
     });
   }
 
-  // 2. Headline Animation
+  
   if (headline) {
     const text = headline.textContent;
     const words = text.split(' ');
@@ -239,7 +236,7 @@ function initHeroAnimation() {
     });
   }
 
-  // 3. Hero sub and CTAs
+  
   gsap.to('.hero-sub, .hero-ctas, .hero-redesign .reveal', {
     opacity: 1,
     y: 0,
@@ -250,13 +247,13 @@ function initHeroAnimation() {
     delay: 0.6
   });
 
-  // 4. Trigger Hero-specific hands if they exist
+  
   if (typeof initHeroHands === 'function') {
     initHeroHands();
   }
 }
 
-// ─── PAPER STACK PARALLAX ───
+
 function initParallax() {
   if (!window.gsap || !window.ScrollTrigger) return;
   const stack = document.querySelector('.paper-stack');
@@ -274,7 +271,7 @@ function initParallax() {
   });
 }
 
-// ─── PROJECT CARD ROTATE-SETTLE ───
+
 function initProjectCards() {
   if (!window.gsap || !window.ScrollTrigger) return;
 
@@ -290,7 +287,7 @@ function initProjectCards() {
   });
 }
 
-// ─── SERVICE CARDS UNFOLD ───
+
 function initServiceCards() {
   if (!window.gsap || !window.ScrollTrigger) return;
 
@@ -305,7 +302,7 @@ function initServiceCards() {
 
     const textToType = desc.dataset.text || '';
 
-    // Create main card entry timeline
+    
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: card,
@@ -315,7 +312,7 @@ function initServiceCards() {
       delay: i * 0.15
     });
 
-    // 1. Reveal the card frame and left section
+    
     tl.fromTo(card,
       { opacity: 0, scale: 0.96 },
       { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out' }
@@ -329,14 +326,14 @@ function initServiceCards() {
       );
     }
 
-    // 2. Animate typing cursor fade-in
+    
     tl.to(cursor, { opacity: 1, duration: 0.1 }, '-=0.1');
 
-    // 3. Perform character typing reveal
+    
     const typingObj = { charCount: 0 };
     tl.to(typingObj, {
       charCount: textToType.length,
-      duration: 2.2, // Sleek, readable typing speed
+      duration: 2.2, 
       ease: 'none',
       onUpdate: () => {
         const count = Math.round(typingObj.charCount);
@@ -344,7 +341,7 @@ function initServiceCards() {
       }
     });
 
-    // 4. Cursor blink and fade out + Tags slide-up
+    
     tl.to(cursor, {
       opacity: 0,
       repeat: 3,
@@ -359,13 +356,13 @@ function initServiceCards() {
       tl.fromTo(tags,
         { opacity: 0, y: 15 },
         { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
-        '-=0.3' // Overlaps with the blinking cursor
+        '-=0.3' 
       );
     }
   });
 }
 
-// ─── CONTACT FORM ───
+
 function initContactForm() {
   const form = document.getElementById('contact-form');
   if (!form) return;
@@ -376,7 +373,7 @@ function initContactForm() {
     if (success) {
       success.style.display = 'block';
       form.reset();
-      // Reset floating labels
+      
       form.querySelectorAll('input, textarea, select').forEach(el => {
         el.dispatchEvent(new Event('change'));
       });
@@ -384,7 +381,7 @@ function initContactForm() {
   });
 }
 
-// ─── FILTER BAR (Work page) ───
+
 function initFilterBar() {
   const btns = document.querySelectorAll('.filter-btn');
   const cards = document.querySelectorAll('.project-card');
@@ -408,9 +405,9 @@ function initFilterBar() {
   });
 }
 
-// ─── 3D TILT EFFECT ───
+
 function init3DTilt() {
-  // Using event delegation for efficiency and SPA compatibility
+  
   document.addEventListener('mousemove', (e) => {
     const card = e.target.closest('.card, .project-card, .service-card-wide, .snippet-card, .sticky-note');
     if (!card) return;
@@ -419,11 +416,11 @@ function init3DTilt() {
     const x = (e.clientX - r.left) / r.width;
     const y = (e.clientY - r.top) / r.height;
 
-    // Intensified tilt strength and scale
+    
     const rX = (0.5 - y) * 25;
     const rY = (x - 0.5) * 25;
 
-    // Dynamic Shadow shift
+    
     const sX = (x - 0.5) * 30;
     const sY = (y - 0.5) * 30;
 
@@ -449,7 +446,7 @@ function init3DTilt() {
     const card = e.target.closest('.card, .project-card, .service-card-wide, .snippet-card, .sticky-note');
     if (!card) return;
 
-    // Only reset if we actually left the card boundaries
+    
     const related = e.relatedTarget;
     if (related && card.contains(related)) return;
 
@@ -467,9 +464,9 @@ function init3DTilt() {
   });
 }
 
-// ─── INIT ALL ───
+
 document.addEventListener('DOMContentLoaded', () => {
-  // Force scroll to top on reload
+  
   if (history.scrollRestoration) {
     history.scrollRestoration = 'manual';
   }
@@ -478,7 +475,7 @@ document.addEventListener('DOMContentLoaded', () => {
   injectSharedElements();
   initLenis();
 
-  // Defer animation triggers for skeletal pages to prevent ScrollTrigger dimension glitches
+  
   const pageType = document.body.dataset.page;
   const isIndex = !pageType || pageType === 'index';
 
@@ -496,9 +493,9 @@ document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
 });
 
-// ─── PRELOADER logic ───
+
 function initPreloader() {
-  // If we are on a skeletal page, run the skeletal loading system
+  
   const pageType = document.body.dataset.page;
   if (pageType && pageType !== 'index') {
     initSkeletalLoader();
@@ -511,7 +508,7 @@ function initPreloader() {
     return;
   }
 
-  // 1. Strictly disable all scrolling
+  
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
   if (window._lenis) window._lenis.stop();
@@ -519,20 +516,20 @@ function initPreloader() {
   const progressText = preloader.querySelector('.loader-progress');
   const logoText = preloader.querySelector('.loader-logo span');
 
-  // ── TWO-GATE SYSTEM ──────────────────────────────────────────
-  // Outro only plays once BOTH gates are open:
-  //   Gate A: progress counter reaches 100%
-  //   Gate B: Spline iframe fires its load event (or timeout reached)
-  let gateA = false; // progress done
-  let gateB = false; // spline ready
+  
+  
+  
+  
+  let gateA = false; 
+  let gateB = false; 
 
   function tryPlayOutro() {
-    if (!gateA || !gateB) return; // both must be true
+    if (!gateA || !gateB) return; 
     playOutro();
   }
 
   function openGateB() {
-    if (gateB) return; // prevent double-fire
+    if (gateB) return; 
     gateB = true;
     if (progressText && progressText.innerText === '100%') {
       progressText.innerText = 'Ready';
@@ -541,18 +538,18 @@ function initPreloader() {
   }
 
   function playOutro() {
-    // Slide preloader up using the CSS transition
+    
     preloader.style.transform = 'translateY(-100%)';
 
-    // Play hero entrance after a brief delay so it starts while the preloader slides up
+    
     setTimeout(() => {
       initHeroAnimation();
     }, 300);
 
-    // Completely cleanup and re-enable scrolling when slide animation completes (900ms)
+    
     setTimeout(() => {
       preloader.style.display = 'none';
-      // Re-enable all scrolling
+      
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
       if (window._lenis) window._lenis.start();
@@ -560,7 +557,7 @@ function initPreloader() {
     }, 900);
   }
 
-  // ── GATE A: Progress counter ─────────────────────────────────
+  
   let progress = { value: 0 };
   gsap.to(progress, {
     value: 100,
@@ -571,15 +568,15 @@ function initPreloader() {
     },
     onComplete: () => {
       gateA = true;
-      // If still waiting for Spline, tell the user visually
+      
       if (!gateB && progressText) progressText.innerText = 'Loading…';
       tryPlayOutro();
     }
   });
 
-  // ── GATE B: Spline iframe load ───────────────────────────────
+  
   const splineIframe = document.getElementById('spline-iframe');
-  // Hard timeout — never leave user stuck if Spline is slow / offline
+  
   const SPLINE_TIMEOUT_MS = 9000;
   let splineTimer = null;
 
@@ -588,12 +585,12 @@ function initPreloader() {
 
     splineIframe.addEventListener('load', () => {
       clearTimeout(splineTimer);
-      // Small buffer so Spline's WebGL scene has a moment to initialise
-      // before we start fading the preloader out
+      
+      
       setTimeout(openGateB, 500);
     });
 
-    // Edge case: iframe was served from cache and is already complete
+    
     if (
       splineIframe.contentDocument &&
       splineIframe.contentDocument.readyState === 'complete'
@@ -602,11 +599,11 @@ function initPreloader() {
       setTimeout(openGateB, 500);
     }
   } else {
-    // No Spline iframe on this page — open gate B immediately
+    
     openGateB();
   }
 
-  // ── Initial logo reveal inside preloader ─────────────────────
+  
   if (logoText) {
     gsap.fromTo(logoText,
       { opacity: 0, scale: 0.8, y: 20 },
@@ -615,21 +612,21 @@ function initPreloader() {
   }
 }
 
-// ─── SKELETAL LOADING SYSTEM ───
+
 function initSkeletalLoader() {
   const pageType = document.body.dataset.page;
   if (!pageType || pageType === 'index') return;
 
-  // 1. Force state consistency
+  
   document.body.classList.add('skeleton-active');
   document.body.style.overflow = 'hidden';
   if (window._lenis) window._lenis.stop();
 
-  // ── BYPASS LOGIC (For smooth scroll transitions) ──
+  
   if (sessionStorage.getItem('skipSkeleton') === 'true') {
     sessionStorage.removeItem('skipSkeleton');
     
-    // Hide immediately before anything renders
+    
     const mainContent = document.querySelector('main#swup');
     if (mainContent) {
       mainContent.style.opacity = '0';
@@ -655,14 +652,14 @@ function initSkeletalLoader() {
     return;
   }
 
-  // 2. Create overlay container
+  
   const overlay = document.createElement('div');
   overlay.id = 'skeleton-loader';
   overlay.className = 'skeleton-overlay';
 
   let skeletonHTML = '';
 
-  // Generate page-specific high-fidelity skeleton templates
+  
   if (pageType === 'about') {
     skeletonHTML = `
       <div class="skeleton-container">
@@ -845,22 +842,22 @@ function initSkeletalLoader() {
   overlay.innerHTML = skeletonHTML;
   document.body.prepend(overlay);
 
-  // 3. Setup premium GSAP outro transition
+  
   setTimeout(() => {
     if (window.gsap) {
-      // Remove skeleton-active early so CSS !important doesn't override our GSAP animations
+      
       document.body.classList.remove('skeleton-active');
-      // Set initial state of main content
+      
       gsap.set('main#swup', { opacity: 0, visibility: 'visible' });
 
-      // Initialize all triggers and animations now that elements have layout and are visible
+      
       initScrollReveals();
       initParallax();
       initProjectCards();
       initServiceCards();
       initHeroAnimation();
 
-      // Recalculate ScrollTrigger positions now that everything is active
+      
       if (window.ScrollTrigger) {
         ScrollTrigger.refresh();
       }
@@ -876,7 +873,7 @@ function initSkeletalLoader() {
         }
       });
 
-      // Quick snappy fade out of skeleton blocks
+      
       outroTl.to(overlay.querySelectorAll('.skeleton-block, .skeleton-card'), {
         opacity: 0,
         y: -15,
@@ -895,7 +892,7 @@ function initSkeletalLoader() {
           ease: "power2.out"
         }, "-=0.15");
     } else {
-      // Fallback
+      
       document.body.classList.remove('skeleton-active');
       overlay.style.opacity = '0';
       const mainContent = document.querySelector('main#swup');
@@ -913,10 +910,10 @@ function initSkeletalLoader() {
         document.body.style.overflow = '';
       }, 300);
     }
-  }, 200); // 200ms of shimmer - lightning fast!
+  }, 200); 
 }
 
-// Global window load listener to ensure all assets are fully loaded and layout is perfect
+
 if (typeof window !== 'undefined') {
   window.addEventListener('load', () => {
     if (window.ScrollTrigger) {

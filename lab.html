@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <!-- Preload high-priority hero background ASAP -->
+  
 
   <link rel="stylesheet" href="style.css" />
 
@@ -53,7 +53,7 @@
         line-height: 1.7;
       }
 
-      /* Snippet card previews — small animated demos */
+      
       .snippet-preview-nav {
         position: relative;
         overflow: hidden;
@@ -97,7 +97,7 @@
         justify-content: center;
       }
 
-      /* Scroll Indicator Chevrons */
+      
       .chevrons { display: flex; flex-direction: column; align-items: center; gap: 2px; }
       .chev {
         width: 18px; height: 10px;
@@ -172,7 +172,7 @@
         cursor: none;
       }
 
-      /* Sticky notes */
+      
       .sticky-note-1 { transform: rotate(-1.5deg); background: #DCE5EB; }
       .sticky-note-2 { transform: rotate(1deg); background: #C8D6DF; }
 
@@ -192,7 +192,7 @@
       }
     </style>
 
-    <!-- ═══════ LAB HERO ═══════ -->
+    
     <section class="lab-hero">
       <div class="container">
         <div class="lab-stamp reveal">Ongoing</div>
@@ -203,7 +203,7 @@
 
 
 
-    <!-- ═══════ UI SNIPPETS ═══════ -->
+    
     <section class="snippets-section">
       <div class="container">
         <p class="section-label reveal">UI Snippets</p>
@@ -212,7 +212,7 @@
 
         <div class="snippets-grid">
 
-          <!-- Snippet 1: Animated Nav -->
+          
           <div class="card snippet-card">
             <div class="snippet-preview snippet-preview-nav" style="height: 160px;">
               <div class="demo-nav-inner">
@@ -229,7 +229,7 @@
             <div class="copy-feedback">Copied to clipboard!</div>
           </div>
 
-          <!-- Snippet 2: Scroll Indicator -->
+          
           <div class="card snippet-card">
             <div class="snippet-preview snippet-preview-scroll" style="height: 160px;">
               <div class="chevrons">
@@ -243,7 +243,7 @@
             <div class="copy-feedback">Copied to clipboard!</div>
           </div>
 
-          <!-- Snippet 3: Magnetic CTA Button -->
+          
           <div class="card snippet-card">
             <div class="snippet-preview snippet-preview-cta" style="height: 160px;">
               <div class="cta-pulse"></div>
@@ -254,7 +254,7 @@
             <div class="copy-feedback">Copied to clipboard!</div>
           </div>
 
-          <!-- Snippet 4: Text Scramble -->
+          
           <div class="card snippet-card">
             <div class="snippet-preview snippet-preview-scramble" style="height: 160px;" data-scramble="VIXORA LAB">
               VIXORA LAB
@@ -271,7 +271,7 @@
 
     <hr class="lab-divider" />
 
-    <!-- ═══════ SIDE PROJECTS ═══════ -->
+    
     <section class="side-projects-section">
       <div class="container">
         <p class="section-label reveal">Side Projects</p>
@@ -301,7 +301,7 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    // Robust copy-to-clipboard implementation
+    
     function copySnippet(el, type) {
       const snippets = {
         nav: `/* Hover underline nav link */\n.nav-link { position: relative; }\n.nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:var(--rust); transition:width .3s ease; }\n.nav-link:hover::after { width:100%; }`,
@@ -312,14 +312,14 @@
       
       const textToCopy = snippets[type];
 
-      // Try modern Clipboard API first
+      
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(textToCopy).catch(err => console.error('Clipboard API failed', err));
       } else {
-        // Fallback for older browsers or non-secure contexts
+        
         const textArea = document.createElement("textarea");
         textArea.value = textToCopy;
-        textArea.style.position = "fixed"; // Prevent scrolling to bottom
+        textArea.style.position = "fixed"; 
         textArea.style.left = "-999999px";
         document.body.appendChild(textArea);
         textArea.select();
@@ -331,13 +331,13 @@
         document.body.removeChild(textArea);
       }
 
-      // Show feedback
+      
       const fb = el.nextElementSibling;
       fb.style.display = 'block';
       setTimeout(() => fb.style.display = 'none', 2000);
     }
 
-    // Scramble logic for demo
+    
     const CHARSET = '!<>-_\/[]{}—=+*^?#';
     function scramble(el, finalText, speed = 30) {
       let frame = 0;
@@ -359,7 +359,7 @@
       el.addEventListener('mouseenter', () => scramble(el, el.dataset.scramble));
     });
 
-    // Magnetic CTA Demo
+    
     const ctaZone = document.querySelector('.snippet-preview-cta');
     const ctaBtn = ctaZone ? ctaZone.querySelector('.sticky-cta-demo') : null;
     if (ctaZone && ctaBtn) {

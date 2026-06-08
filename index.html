@@ -19,7 +19,7 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- CDN Libraries -->
+  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Draggable.min.js" defer></script>
@@ -27,7 +27,7 @@
   <script src="shared.js" defer></script>
 
   <style>
-    /* Page-specific styles */
+    
     body[data-page="index"] main {
       padding-top: 0;
     }
@@ -36,7 +36,7 @@
       background: #F4F5F6;
     }
 
-    /* Preloader Styles (Vixora-2 style) */
+    
     #preloader {
       position: fixed;
       inset: 0;
@@ -103,7 +103,7 @@
       }
     }
 
-    /* Initial Visibility States (for GSAP to reveal) */
+    
     #vixora-nav,
     .hero-redesign .reveal,
     .hero-sub,
@@ -168,7 +168,7 @@
     .hand {
       position: absolute;
       top: 73%;
-      /* Lowered further */
+      
       transform: translateY(-50%);
       width: 56%;
       max-width: 900px;
@@ -178,7 +178,7 @@
     .robot-hand {
       left: -3%;
       top: 77%;
-      /* Lowered specifically */
+      
     }
 
     .human-hand {
@@ -193,7 +193,7 @@
       margin-right: auto;
       width: max-content;
       top: 47%;
-      /* Adjusted to push the desktop CTA button up a little bit */
+      
       padding: 60px;
       display: flex;
       align-items: center;
@@ -266,7 +266,7 @@
 
 
 
-    /* Brand promise dark section */
+    
     .brand-promise-wrap {
       padding: 7rem 0;
       background: transparent;
@@ -314,7 +314,7 @@
       font-size: 0.85rem;
     }
 
-    /* AI section */
+    
     .ai-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -363,7 +363,7 @@
     .featured-work {
       overflow: hidden;
       padding: 6rem 0 10rem;
-      /* Reduced top padding */
+      
     }
 
     .work-scroll-container {
@@ -379,14 +379,14 @@
       width: max-content;
       padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
       padding-right: 15vw;
-      /* Enough to see the last card clearly */
+      
     }
 
     .work-card {
       width: 420px !important;
       flex-shrink: 0 !important;
       height: auto !important;
-      /* Allow height to adjust to content */
+      
       min-height: 460px !important;
       display: flex;
       flex-direction: column;
@@ -394,11 +394,11 @@
 
     .work-thumb {
       height: 220px !important;
-      /* Slightly smaller thumb */
+      
       flex-shrink: 0;
     }
 
-    /* Mobile Viewports (Phones) */
+    
     @media (max-width: 767px) {
       .hero-redesign {
         height: auto;
@@ -444,7 +444,7 @@
 
       .magnetic-zone {
         top: 60%;
-        /* Pushed up a bit more */
+        
         left: 0;
         right: 0;
         margin: 0 auto;
@@ -533,10 +533,10 @@
       }
     }
 
-    /* iPad Portrait Specific Overrides (Optimized Scaling) */
+    
     @media only screen and (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
 
-      /* Center the hero content block */
+      
       .hero-content {
         left: 50% !important;
         top: 8vh !important;
@@ -553,7 +553,7 @@
         line-height: 1.08 !important;
       }
 
-      /* Reset robot back to center (overrides the 65% left from the general tablet query) */
+      
       .hero-spline {
         left: 50% !important;
         top: auto !important;
@@ -563,12 +563,12 @@
         width: 150vw !important;
       }
 
-      /* Hide orbit ring — too cluttered on portrait */
+      
       .hero-orbit {
         display: none !important;
       }
 
-      /* Center the CTA buttons below the headline */
+      
       .hero-pill-wrap {
         top: 37vh !important;
         bottom: auto !important;
@@ -580,19 +580,19 @@
         gap: 1rem !important;
       }
 
-      /* Show the desktop availability badge below the headline (it's inside hero-content) */
+      
       .availability-badge {
         display: inline-flex !important;
         margin-top: 1.5rem !important;
       }
 
-      /* Hide the mobile-only badge — iPad portrait triggers max-width:768px too */
+      
       .availability-badge-mobile {
         display: none !important;
       }
     }
 
-    /* iPad Landscape Specific Overrides */
+    
     @media only screen and (min-width: 768px) and (max-width: 1366px) and (orientation: landscape) {
 
       .hero-content,
@@ -634,7 +634,7 @@
       --dark-text: #0D1117;
     }
 
-    /* ══ HERO ═══════════════════════════════════════ */
+    
     #hero {
       position: relative;
       width: 100%;
@@ -649,7 +649,7 @@
       display: none;
     }
 
-    /* HERO CONTENT */
+    
     .hero-content {
       position: absolute;
       left: 3rem;
@@ -707,22 +707,22 @@
       }
     }
 
-    /* HERO SPLINE */
+    
     .hero-spline {
       position: absolute;
       top: 50%;
       left: 70%;
-      /* translateZ(0) promotes to its own GPU compositor layer before the transition begins */
+      
       transform: translate(-50%, -50%) translateZ(0);
       width: 100%;
       height: 100%;
       z-index: 5;
       clip-path: polygon(0 0, 100% 0, 100% calc(100% - 60px), calc(100% - 180px) calc(100% - 60px), calc(100% - 180px) 100%, 0 100%);
-      /* Hint to the browser to promote this layer ahead of the exit animation */
+      
       will-change: transform, opacity;
     }
 
-    /* HERO ORBIT CIRCLE */
+    
     .hero-orbit {
       position: absolute;
       top: 50%;
@@ -758,7 +758,7 @@
       height: 100%;
     }
 
-    /* FLOATING LABELS */
+    
     .float-wrapper {
       position: absolute;
       z-index: 20;
@@ -791,7 +791,7 @@
       }
     }
 
-    /* PILL BUTTON */
+    
     .pill-btn {
       display: inline-flex;
       align-items: center;
@@ -899,7 +899,7 @@
       }
     }
 
-    /* MAGNETIC ZONE */
+    
     .magnetic-zone {
       padding: 60px;
       display: inline-flex;
@@ -947,7 +947,7 @@
       transform-style: preserve-3d;
     }
 
-    /* HERO PILL POSITION */
+    
     .hero-pill-wrap {
       position: absolute;
       bottom: 12%;
@@ -1012,7 +1012,7 @@
 
       .hero-label {
         display: none !important;
-        /* Hide 'WHAT WE DO' on mobile */
+        
       }
 
       .hero-headline {
@@ -1024,7 +1024,7 @@
         display: none !important;
       }
 
-      /* Mobile availability badge — sits between buttons and robot */
+      
       .availability-badge-mobile {
         display: inline-flex !important;
         position: absolute;
@@ -1040,7 +1040,7 @@
       }
     }
 
-    /* Hide mobile badge on desktop */
+    
     .availability-badge.availability-badge-mobile {
       display: none;
     }
@@ -1141,7 +1141,7 @@
       .hero-spline,
       .hero-orbit {
         left: 65%;
-        /* Shift robot and background rings together to the right */
+        
       }
     }
 
@@ -1331,7 +1331,7 @@
       }
     }
 
-    /* Desktop-only size increases and shifts */
+    
     @media (min-width: 1025px) {
 
       .hero-content,
@@ -1354,9 +1354,8 @@
       }
     }
 
-    /* ─── HERO → ABOUT STICKY PANEL TRANSITION ─── */
-    /* Hero stays pinned (sticky). All content below slides up in a wrapper
-       that replicates the site's dot-pattern background, blocking the hero. */
+    
+    
 
     .page-content-wrap {
       position: relative;
@@ -1364,8 +1363,7 @@
       background-color: #F4F5F6;
     }
 
-    /* Dot pattern on a pseudo-element so the vignette mask only affects
-       the dots — not the text, cards, or other content inside */
+    
     .page-content-wrap::before {
       content: '';
       position: fixed;
@@ -1378,40 +1376,38 @@
       mask-image: radial-gradient(circle at center, black 0%, rgba(0,0,0,0.65) 50%, transparent 90%);
     }
 
-    /* All direct children of the wrapper sit above the dot layer */
+    
     .page-content-wrap > * {
       position: relative;
       z-index: 1;
     }
 
-    /* Visual panel leading edge — only on the About section */
+    
     .about-section {
       border-radius: 24px 24px 0 0;
       padding-top: 5rem !important;
       box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.08);
-      /* Override overflow:hidden from style.css — it creates a hard paint
-         boundary line at the section's bottom edge on the merged page */
+      
       overflow: visible;
     }
 
-    /* ── Mobile (phones) ── */
+    
     @media (max-width: 767px) {
-      /* Smaller radius on mobile — panel still slides but edge is subtler */
+      
       .about-section {
         border-radius: 16px 16px 0 0;
         padding-top: 3.5rem !important;
         box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.07);
       }
 
-      /* Mobile Safari: use -webkit-fill-available so the hero fills the
-         actual visual viewport (excluding browser chrome) */
+      
       .hero-sticky-container {
         height: 100vh;
         height: -webkit-fill-available;
       }
     }
 
-    /* ── iPad portrait & landscape (768px – 1024px) ── */
+    
     @media (min-width: 768px) and (max-width: 1024px) {
       .about-section {
         border-radius: 20px 20px 0 0;
@@ -1419,7 +1415,7 @@
       }
     }
 
-    /* ─── BRAND PROMISE SECTION (merged from about) ─── */
+    
     .brand-promise-wrap {
       padding: 7rem 0;
       background: transparent;
@@ -1466,7 +1462,7 @@
       font-size: 0.85rem;
     }
 
-    /* ─── AI SECTION (merged from about) ─── */
+    
     .ai-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -1512,7 +1508,7 @@
       }
     }
 
-    /* ─── FEATURED WORK (merged from about — horizontal scroll overrides) ─── */
+    
     .work-scroll-container {
       width: 100%;
       overflow: visible;
@@ -1583,7 +1579,7 @@
 
 <body data-page="index">
   <div class="site-dots" aria-hidden="true"></div>
-  <!-- Preloader -->
+  
   <div id="preloader">
     <div class="loader-content">
       <div class="loader-logo"><span>VIXORA</span></div>
@@ -1596,7 +1592,7 @@
 
   <main id="swup">
 
-    <!-- ═══════ HERO REDESIGN ═══════ -->
+    
     <div class="hero-sticky-container" style="height: 100vh; position: sticky; top: 0; overflow: hidden;">
       <section id="hero">
         <div class="noise-bg" aria-hidden="true"></div>
@@ -1615,14 +1611,14 @@
         </div>
 
 
-        <!-- spline model — starts loading during preloader; preloader waits for it -->
+        
         <div class="hero-spline" id="hero-spline-wrap">
           <iframe id="spline-iframe"
             src="https://my.spline.design/nexbotrobotcharacterconcept-pODYkG49xxwQk2KTjbr4Y0oY/" frameborder="0"
             width="100%" height="100%"></iframe>
         </div>
 
-        <!-- decorative orbit ring — labels ride its circumference -->
+        
         <div class="hero-orbit" aria-hidden="true">
           <div class="orbit-arm design-arm">
             <div class="float-wrapper design"><span class="float-label" aria-hidden="true">DESIGN</span></div>
@@ -1657,7 +1653,7 @@
           </a>
         </div>
 
-        <!-- Mobile-only availability badge -->
+        
         <div class="availability-badge availability-badge-mobile">
           <span class="availability-dot"></span>
           <span class="availability-text">Available for new projects &mdash; <span
@@ -1665,16 +1661,16 @@
         </div>
 
         <script>
-          // Init Hero logic for Vixora
+          
           function initHero() {
             if (typeof gsap !== 'undefined') {
-              // Setup initial states
+              
               gsap.set('.hero-content', { x: -36, opacity: 0 });
               gsap.set('.hero-fluid-container', { y: 30, opacity: 0 });
               gsap.set('.float-label', { scale: 0.88, opacity: 0 });
               gsap.set('.hero-pill-wrap', { y: 18, opacity: 0 });
 
-              // Auto-update availability date
+              
               const date = new Date();
               const dateStr = date.toLocaleString('en-US', { month: 'long', year: 'numeric' });
               const dateEl = document.getElementById('current-month-year');
@@ -1682,7 +1678,7 @@
               const dateMobileEl = document.getElementById('current-month-year-mobile');
               if (dateMobileEl) dateMobileEl.textContent = dateStr;
 
-              // Entrance animation (called after preloader)
+              
               window.playHeroEntrance = function () {
                 gsap.timeline({ delay: 0.1, onComplete: () => { window.heroEntranceComplete = true; } })
                   .to('.hero-content', { x: 0, opacity: 1, duration: 0.9, ease: 'power3.out' })
@@ -1691,7 +1687,7 @@
                   .to('.hero-pill-wrap', { y: 0, opacity: 1, duration: 0.75, ease: 'power3.out' }, '-=0.4');
               };
 
-              // HUD Telemetry value updates
+              
               setInterval(() => {
                 if (!document.getElementById('hud-console')) return;
                 const frqEl = document.getElementById('hud-val-frq');
@@ -1704,7 +1700,7 @@
                 if (pingEl) pingEl.textContent = Math.floor(12 + Math.random() * 6) + ' ms';
               }, 1500);
 
-              // HUD log console stream
+              
               const consoleEl = document.getElementById('hud-console');
               if (consoleEl) {
                 const LOG_MESSAGES = [
@@ -1722,7 +1718,7 @@
                 }, 3200);
               }
 
-              /* ── ICONS ─────────────────────────────────────── */
+              
               var ICONS = [
                 '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.13 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.09 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
                 '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>',
@@ -1748,10 +1744,10 @@
 
               initPill(document.getElementById('flipper-hero'), 0);
 
-              /* ── SCROLL DOT ─────────────────────────────────── */
+              
               gsap.to('#scroll-dot', { y: 76, duration: 2.4, repeat: -1, yoyo: true, ease: 'power1.inOut' });
 
-              /* ── MAGNETIC BUTTON ────────────────────────────── */
+              
               document.querySelectorAll('.magnetic-zone').forEach(zone => {
                 const btn = zone.querySelector('.pill-btn');
                 if (!btn) return;
@@ -1770,7 +1766,7 @@
                 });
               });
 
-              /* ── LABEL DRIFT (Responsive Orbit Arm Counter-Rotation) ── */
+              
               [
                 { arm: '.design-arm', lbl: '.design-arm .float-wrapper', baseAngle: 220, rot: 6, d: 5.2, delay: 0 },
                 { arm: '.clarity-arm', lbl: '.clarity-arm .float-wrapper', baseAngle: 195, rot: -5, d: 4.8, delay: -1.2 },
@@ -1783,25 +1779,25 @@
                 gsap.to(p.lbl, { rotation: -(p.baseAngle + p.rot), duration: p.d, repeat: -1, yoyo: true, ease: 'sine.inOut', delay: p.delay });
               });
 
-              /* ── HERO ORBIT INITIALIZATION ── */
+              
               var orbitWrap = document.querySelector('.hero-orbit');
               if (orbitWrap) {
                 gsap.set(orbitWrap, { x: 0, y: 0, xPercent: -50, yPercent: -50 });
               }
 
-              // Allow the preloader logic in shared.js to call playHeroEntrance
-              // We expose initHeroHands for compatibility with shared.js which might call it
+              
+              
               window.initHeroHands = window.playHeroEntrance;
             }
           }
 
-          // Execute initialization
+          
           document.addEventListener("DOMContentLoaded", function () {
             initHero();
 
-            // ── SPLINE PAUSE WHEN HERO IS COVERED ──────────────────────
-            // Once the About panel fully slides over the hero, stop the
-            // Spline WebGL render to save GPU. Restore it on scroll back up.
+            
+            
+            
             const splineIframe = document.getElementById('spline-iframe');
             const heroSection  = document.getElementById('hero');
 
@@ -1809,9 +1805,9 @@
               const cachedSrc = splineIframe.src;
               let splinePaused = false;
 
-              // IntersectionObserver can't detect sticky occlusion, so use
-              // scroll position: once scrollY > 85% of viewport height the
-              // About panel fully covers the hero — kill the WebGL render.
+              
+              
+              
               function checkSplinePause() {
                 const covered = window.scrollY > window.innerHeight * 0.85;
                 if (covered && !splinePaused) {
@@ -1823,7 +1819,7 @@
                 }
               }
 
-              // Attach to Lenis if ready, otherwise native scroll
+              
               function attachSplineScroll() {
                 if (window._lenis) {
                   window._lenis.on('scroll', checkSplinePause);
@@ -1831,7 +1827,7 @@
                   window.addEventListener('scroll', checkSplinePause, { passive: true });
                 }
               }
-              // Lenis initialises on DOMContentLoaded too — give it a tick
+              
               setTimeout(attachSplineScroll, 100);
             }
           });
@@ -1839,19 +1835,18 @@
         </script>
       </section>
 
-    </div> <!-- /.hero-sticky-container -->
+    </div> 
 
-    <!-- All scrolling content wrapped so it slides over the sticky hero
-         with the correct site background (dot pattern + cream base) -->
+    
     <div class="page-content-wrap">
-    <!-- ═══════ ABOUT VIXORA ═══════ -->
+    
     <section class="about-section" id="about">
       <div class="container">
 
-        <!-- Split: Text + Identity Card -->
+        
         <div class="about-split">
 
-          <!-- Left: Text -->
+          
           <div class="about-left">
             <p class="section-label" id="about-label">About Vixora</p>
             <h2 class="about-headline" id="about-headline">A studio<br>obsessed<br>with craft.</h2>
@@ -1860,7 +1855,7 @@
             <a href="contact.html" class="btn btn-primary" id="about-cta" style="margin-top: 2.2rem; display: inline-block;"><span>Work With Us</span></a>
           </div>
 
-          <!-- Right: Identity Card -->
+          
           <div class="about-right" id="about-card-wrap">
             <div class="card about-id-card">
               <div class="about-id-top">
@@ -1879,9 +1874,9 @@
             </div>
           </div>
 
-        </div><!-- /about-split -->
+        </div>
 
-        <!-- Stats Row -->
+        
         <div class="about-stats-row" id="about-stats">
           <div class="about-stat">
             <div class="stat-display">
@@ -1914,9 +1909,9 @@
             </div>
             <p>Response Time</p>
           </div>
-        </div><!-- /about-stats-row -->
+        </div>
 
-      </div><!-- /container -->
+      </div>
 
       <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -1924,7 +1919,7 @@
 
           gsap.registerPlugin(ScrollTrigger);
 
-          // ── Section label slides in ──
+          
           gsap.fromTo('#about-label',
             { x: -30, opacity: 0 },
             {
@@ -1933,7 +1928,7 @@
             }
           );
 
-          // ── Headline: line-by-line reveal ──
+          
           const headline = document.getElementById('about-headline');
           if (headline) {
             const lines = headline.innerHTML.split(/<br\s*\/?>/i);
@@ -1950,7 +1945,7 @@
             );
           }
 
-          // ── Body paragraphs and CTA stagger in ──
+          
           gsap.fromTo(['#about-body-1', '#about-body-2', '#about-cta'],
             { y: 28, opacity: 0 },
             {
@@ -1959,7 +1954,7 @@
             }
           );
 
-          // ── Identity card: slides + slight rotate in from right ──
+          
           gsap.fromTo('#about-card-wrap',
             { x: 60, opacity: 0, rotate: 1.5 },
             {
@@ -1968,7 +1963,7 @@
             }
           );
 
-          // ── Values inside card stagger in ──
+          
           gsap.fromTo('.about-id-value',
             { x: 20, opacity: 0 },
             {
@@ -1977,7 +1972,7 @@
             }
           );
 
-          // ── Stats row slides up ──
+          
           gsap.fromTo('#about-stats',
             { y: 60, opacity: 0 },
             {
@@ -1986,7 +1981,7 @@
             }
           );
 
-          // ── Counter animations ──
+          
           document.querySelectorAll('#about-stats .stat-num').forEach(el => {
             const target = parseInt(el.dataset.target, 10);
             const obj = { val: 0 };
@@ -2002,7 +1997,7 @@
       </script>
     </section>
 
-    <!-- ═══════ WHAT WE DO ═══════ -->
+    
     <section class="what-we-do-standalone" id="what-we-do">
       <div class="container">
         <p class="section-label" id="wwd-label">What We Do</p>
@@ -2064,7 +2059,7 @@
       </script>
     </section>
 
-    <!-- ═══════ BRAND PROMISE ═══════ -->
+    
     <section class="brand-promise-wrap">
       <div class="container">
         <div class="brand-promise-inner">
@@ -2106,7 +2101,7 @@
       </div>
     </section>
 
-    <!-- ═══════ AI SECTION ═══════ -->
+    
     <section class="ai-section" style="padding: 7rem 0;">
       <div class="container">
         <div class="ai-inner">
@@ -2134,7 +2129,7 @@
       </div>
     </section>
 
-    <!-- ═══════ FEATURED WORK ═══════ -->
+    
     <section class="featured-work">
       <div class="container">
         <p class="section-label reveal">Selected Work</p>
@@ -2146,7 +2141,7 @@
       <div class="work-scroll-container">
         <div class="work-grid">
 
-          <!-- Project 1: 3M's -->
+          
           <div class="card work-card project-card" data-category="both">
             <div class="work-thumb"
               style="background-image: url('assets/screenshots/the3ms.png'); background-size: cover; background-position: top center;">
@@ -2165,7 +2160,7 @@
             </div>
           </div>
 
-          <!-- Project 2: Kalpavruksha -->
+          
           <div class="card work-card project-card" data-category="both">
             <div class="work-thumb"
               style="background-image: url('assets/screenshots/Kalpavruksha.png'); background-size: cover; background-position: top center;">
@@ -2184,7 +2179,7 @@
             </div>
           </div>
 
-          <!-- Project 3: Ramkrishna Furniture -->
+          
           <div class="card work-card project-card" data-category="both">
             <div class="work-thumb"
               style="background-image: url('assets/screenshots/RK.png'); background-size: cover; background-position: top center;">
@@ -2203,7 +2198,7 @@
             </div>
           </div>
 
-          <!-- Project 4: Multistar -->
+          
           <div class="card work-card project-card" data-category="both">
             <div class="work-thumb"
               style="background-image: url('assets/screenshots/Kalpak C.png'); background-size: cover; background-position: top center;">
@@ -2230,7 +2225,7 @@
       </div>
 
       <script>
-        // Feature Work Horizontal Scroll
+        
         document.addEventListener('DOMContentLoaded', () => {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger);
@@ -2261,22 +2256,20 @@
       </script>
     </section>
 
-  </main>
-
 
 
   <script>
-    // --- Nav Theme Detection ---
+    
     const navElement = document.getElementById('vixora-nav');
     const pageSections = document.querySelectorAll('section, footer');
 
-    // Explicitly map dark sections (where icons should be white)
+    
     const darkSections = ['.hero-redesign', '.lab-section', 'footer'];
 
     const themeObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          // Check if the current section is in our dark list
+          
           const isDark = darkSections.some(selector => entry.target.matches(selector));
 
           if (isDark) {
@@ -2296,10 +2289,11 @@
     pageSections.forEach(section => themeObserver.observe(section));
   </script>
 
-  <!-- Footer injected by JS -->
+  
   <div id="footer-placeholder"></div>
 
-    </div> <!-- /.page-content-wrap -->
+  </div>
+  </main>
 </body>
 
 </html>

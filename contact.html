@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <!-- Preload high-priority hero background ASAP -->
+  
 
   <link rel="stylesheet" href="style.css" />
 
@@ -37,7 +37,7 @@
       font-size: 1.05rem;
     }
 
-    /* Floating label override for select */
+    
     .form-group select option { background: var(--cream); color: var(--charcoal); }
     .form-group.select-group label {
       top: -0.6rem;
@@ -48,7 +48,7 @@
       color: var(--rust);
     }
 
-    /* Input has value = show floating label */
+    
     .form-group input:not([value=""]):not([value]):focus ~ label,
     .form-group textarea:not(:placeholder-shown) + label {
       top: -0.6rem;
@@ -58,7 +58,7 @@
       color: var(--rust);
     }
 
-    /* Postscript */
+    
     .ps-note {
       text-align: center;
       margin-top: 3rem;
@@ -69,7 +69,7 @@
       opacity: 0.7;
     }
 
-    /* Response time badge */
+    
     .response-badge {
       display: inline-flex;
       align-items: center;
@@ -109,14 +109,14 @@
     <section class="contact-page-bg">
       <div class="container">
 
-        <!-- Heading -->
+        
         <div class="contact-heading-block">
           <p class="section-label reveal">Get In Touch</p>
           <h1 class="reveal">We'd love to hear what you're working on.</h1>
           <p class="reveal">No formal brief needed. Tell us where you are at and what you're hoping for, and we'll handle the strategic heavy lifting from there.</p>
         </div>
 
-        <!-- Response badge -->
+        
         <div style="display: flex; justify-content: center; margin-bottom: 2rem;">
           <div class="response-badge reveal">
             <span class="response-dot"></span>
@@ -124,7 +124,7 @@
           </div>
         </div>
 
-        <!-- Social Contact Grid -->
+        
         <div class="social-grid reveal">
           <a href="mailto:shikhar0201@gmail.com" class="card social-card gmail">
             <div class="social-icon">
@@ -152,15 +152,15 @@
           </a>
         </div>
 
-        <!-- Letter-style form -->
+        
         <div class="letter-wrap reveal">
 
-          <!-- Letterhead -->
+          
           <div class="letterhead">Vixora</div>
           <hr class="letterhead-rule" />
           <p class="letter-intro">Share a few preliminary details below. The more context you provide regarding your goals and timeline, the better—but even a rough overview works perfectly as a starting point.</p>
 
-          <!-- Form -->
+          
           <form id="contact-form" novalidate>
 
             <div class="form-group">
@@ -211,7 +211,7 @@
   <div id="footer-placeholder"></div>
 
   <script>
-    // Enhanced floating label for select
+    
     document.addEventListener('DOMContentLoaded', () => {
       const sel = document.getElementById('project-type');
       if (sel) {
@@ -220,7 +220,7 @@
         });
       }
 
-      // Contact Form Submission
+      
       const contactForm = document.getElementById('contact-form');
       const submitBtn = contactForm.querySelector('.btn-submit');
       const successMsg = document.getElementById('form-success');
@@ -228,7 +228,7 @@
       contactForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Loading state
+        
         const originalText = submitBtn.innerHTML;
         submitBtn.innerHTML = '<span>Sending...</span>';
         submitBtn.disabled = true;
@@ -244,14 +244,14 @@
           });
 
           if (response.ok) {
-            // Success
+            
             successMsg.style.display = 'block';
             successMsg.textContent = '✦   Got it — we\'ll be in touch soon.';
             successMsg.style.color = 'var(--charcoal)';
             contactForm.reset();
             if (sel) sel.parentElement.classList.remove('has-value');
             
-            // Hide message after 5 seconds
+            
             setTimeout(() => {
               successMsg.style.display = 'none';
             }, 5000);

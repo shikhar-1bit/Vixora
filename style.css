@@ -1,28 +1,25 @@
-/* ═══════════════════════════════════════════════════
-   VIXORA — SHARED STYLESHEET
-   Paper Cutout / Physical Collage Aesthetic
-═══════════════════════════════════════════════════ */
+
 
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=Special+Elite&family=Bebas+Neue&family=Outfit:wght@300;400;500;600&family=Syne:wght@800&display=swap');
 
-/* ─── CSS VARIABLES ─── */
+
 :root {
   --cream: #E5E6E8;
   --cream-light: #EDEDEF;
   --kraft: #F1F2F3;
-  /* Very Light Grey */
+  
   --kraft-dark: #E2E3E4;
-  /* Light Grey */
+  
   --rust: #1A2026;
-  /* Charcoal */
+  
   --rust-dark: #000000;
-  /* Pure Black for depth */
+  
   --charcoal: #1A2026;
   --charcoal-light: #36424D;
   --sage: #2C343B;
-  /* Dark Grey-Blue */
+  
   --orange: #FF3C28;
-  /* Brand accent — used for section labels, highlights, pill button */
+  
   --orange-glow: rgba(255, 60, 40, 0.45);
   --shadow-sm: 4px 4px 0px rgba(0, 0, 0, 0.1);
   --shadow-md: 6px 6px 0px rgba(0, 0, 0, 0.08);
@@ -34,7 +31,7 @@
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ─── RESET ─── */
+
 *,
 *::before,
 *::after {
@@ -44,8 +41,7 @@
 }
 
 html {
-  /* scroll-behavior: smooth removed — Lenis handles smooth scrolling natively;
-     keeping this causes double-smoothing jank with GSAP ScrollTrigger */
+  
   background-color: var(--cream);
 }
 
@@ -83,7 +79,7 @@ a {
   color: inherit;
 }
 
-/* ─── PAPER TEXTURE ─── */
+
 body::before {
   content: '';
   position: fixed;
@@ -95,8 +91,8 @@ body::before {
   background-repeat: repeat;
 }
 
-/* ─── CUSTOM CURSOR ─── */
-/* ─── TYPOGRAPHY ─── */
+
+
 h1,
 h2,
 h3,
@@ -133,7 +129,7 @@ footer {
   font-family: 'Outfit', sans-serif;
 }
 
-/* ─── LAYOUT ─── */
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -144,7 +140,7 @@ section {
   position: relative;
 }
 
-/* ─── NAVIGATION ─── */
+
 #vixora-nav {
   position: fixed;
   top: 0;
@@ -212,7 +208,7 @@ section {
   color: var(--rust);
 }
 
-/* ─── FOOTER ─── */
+
 #vixora-footer {
   background: transparent;
   padding: 2.5rem 2rem;
@@ -227,7 +223,7 @@ section {
   opacity: 0.8;
 }
 
-/* ─── BUTTONS ─── */
+
 .btn {
   display: inline-block;
   font-family: 'Outfit', sans-serif;
@@ -304,7 +300,7 @@ section {
   z-index: 1;
 }
 
-/* ─── TAGS ─── */
+
 .tag {
   display: inline-block;
   font-family: 'Outfit', sans-serif;
@@ -325,7 +321,7 @@ section {
   opacity: 0.7;
 }
 
-/* ─── CARDS ─── */
+
 .card, .project-card, .service-card-wide, .snippet-card, .sticky-note {
   background: var(--cream-light);
   border: var(--border);
@@ -342,7 +338,7 @@ section {
   backface-visibility: hidden;
 }
 
-/* 3D Tilt Cursor Highlight */
+
 .card::before, .project-card::before, .service-card-wide::before, .snippet-card::before, .sticky-note::before {
   content: '';
   position: absolute; 
@@ -370,7 +366,7 @@ section {
 
 
 
-/* ─── SECTION BACKGROUNDS ─── */
+
 .section-cream {
   background: transparent;
 }
@@ -387,7 +383,7 @@ section {
   background: transparent;
 }
 
-/* ─── SWUP PAGE TRANSITION ─── */
+
 #swup {
   opacity: 1;
 }
@@ -401,14 +397,14 @@ html.is-changing #swup {
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-/* ─── MAIN CONTENT PADDING (for fixed nav) ─── */
+
 main {
   padding-top: 64px;
   position: relative;
   z-index: 1;
 }
 
-/* ─── REVEAL ANIMATIONS ─── */
+
 .reveal {
   opacity: 0;
   transform: translateY(100px) scale(0.92);
@@ -419,7 +415,7 @@ main {
   transform: translateY(0);
 }
 
-/* ─── HERO ─── */
+
 .hero {
   min-height: 92vh;
   display: flex;
@@ -460,7 +456,7 @@ main {
   flex-wrap: wrap;
 }
 
-/* ─── LAYERED PAPER STACK ─── */
+
 .paper-stack {
   position: absolute;
   right: -40px;
@@ -502,7 +498,7 @@ main {
   border: var(--border);
 }
 
-/* ─── HERO STORY WRAP ─── */
+
 #hero-story-wrap {
   position: relative;
   height: 100vh;
@@ -517,7 +513,7 @@ main {
   z-index: 2;
 }
 
-/* ─── WHAT WE DO SECTION (standalone) ─── */
+
 .what-we-do-standalone {
   padding: 7rem 0;
   background: transparent;
@@ -563,7 +559,7 @@ main {
   margin-bottom: 0.75rem;
 }
 
-/* ─── FEATURED WORK ─── */
+
 .featured-work {
   padding: 6rem 0;
   background: transparent;
@@ -664,7 +660,7 @@ main {
 }
 
 
-/* ─── ABOUT SECTION ─── */
+
 .about-section {
   padding: 8rem 0 6rem;
   background: transparent;
@@ -697,7 +693,7 @@ main {
   max-width: 480px;
 }
 
-/* Identity Card */
+
 .about-id-card {
   padding: 2.5rem;
   height: auto;
@@ -767,7 +763,7 @@ main {
   opacity: 0.75;
 }
 
-/* Stats Row */
+
 .about-stats-row {
   display: flex;
   align-items: stretch;
@@ -853,7 +849,7 @@ main {
   }
 }
 
-/* ─── BRAND PROMISE ─── */
+
 .brand-promise {
   padding: 6rem 0;
   background: transparent;
@@ -871,7 +867,7 @@ main {
 }
 
 
-/* ─── AI SECTION ─── */
+
 .ai-section {
   padding: 6rem 0;
   background: transparent;
@@ -885,7 +881,7 @@ main {
   max-width: 580px;
 }
 
-/* ─── WORK PAGE ─── */
+
 .page-banner {
   padding: 5rem 0 3rem;
   background: transparent;
@@ -937,7 +933,7 @@ main {
   transform-origin: center bottom;
 }
 
-/* ─── SERVICES PAGE ─── */
+
 .services-intro {
   padding: 5rem 0 3rem;
   background: transparent;
@@ -995,7 +991,7 @@ main {
   font-size: 1rem;
 }
 
-/* ─── BRAND CALLOUT ─── */
+
 .brand-callout {
   background: var(--cream);
   border: var(--border);
@@ -1011,7 +1007,7 @@ main {
   font-size: 1.05rem;
 }
 
-/* ─── PRICING SECTION ─── */
+
 .pricing-section {
   padding: 5rem 0 6rem;
   background: transparent;
@@ -1026,7 +1022,7 @@ main {
   margin-bottom: 2rem;
 }
 
-/* ─── LAB PAGE ─── */
+
 .lab-intro {
   padding: 5rem 0 3rem;
   background: transparent;
@@ -1072,7 +1068,7 @@ main {
   opacity: 0.6;
 }
 
-/* Snippet Previews Overrides */
+
 .snippet-preview-nav {
   background: #000;
   opacity: 1;
@@ -1142,7 +1138,7 @@ main {
   font-size: 0.9rem;
 }
 
-/* ─── CONTACT PAGE ─── */
+
 .contact-section {
   padding: 5rem 0 6rem;
   background: transparent;
@@ -1323,7 +1319,7 @@ main {
   color: var(--charcoal-light);
 }
 
-/* Social Contact Cards */
+
 .social-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -1340,7 +1336,7 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  background-origin: border-box; /* Ensure gradient covers border area */
+  background-origin: border-box; 
 }
 
 .social-card .social-icon {
@@ -1365,7 +1361,7 @@ main {
   transition: color 0.3s ease;
 }
 
-/* Hover Themes */
+
 .social-card.gmail:hover { background-color: #EA4335 !important; border: 1.5px solid transparent !important; }
 .social-card.instagram:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) !important; border: 1.5px solid transparent !important; }
 .social-card.whatsapp:hover { background-color: #25D366 !important; border: 1.5px solid transparent !important; }
@@ -1388,8 +1384,8 @@ main {
   color: var(--cream) !important;
 }
 
-/* ─── FULL NAV OVERLAY ─── */
-/* ─── DROPDOWN MENU ─── */
+
+
 .nav-dropdown {
   position: absolute;
   top: calc(100% + 15px);
@@ -1443,7 +1439,7 @@ main {
   font-weight: 600;
 }
 
-/* Hide the old fullscreen overlay */
+
 #nav-overlay {
   display: none !important;
 }
@@ -1538,7 +1534,7 @@ main {
   opacity: 1;
 }
 
-/* Hamburger morph during open */
+
 .nav-open-state .nav-hamburger span {
   background: #fff !important;
 }
@@ -1573,7 +1569,7 @@ main {
   transition: none !important;
 }
 
-/* Mobile adjustments */
+
 @media (max-width: 1024px) {
   .nav-links {
     display: none !important;
@@ -1648,9 +1644,9 @@ main {
   }
 }
 
-/* Mobile toggle desktop reset removed */
 
-/* ─── SECTION TRANSITIONS (gradient overlaps) ─── */
+
+
 .section-blend-bottom::after {
   content: '';
   position: absolute;
@@ -1675,7 +1671,7 @@ main {
   z-index: 1;
 }
 
-/* ─── WORD SPLIT ANIMATION ─── */
+
 .split-word {
   display: inline-block;
   overflow: hidden;
@@ -1687,7 +1683,7 @@ main {
   transform: translateY(100%);
 }
 
-/* ─── TRANSPARENT FULL-WIDTH NAVBAR ─── */
+
 #vixora-nav {
   position: fixed;
   top: 1.5rem;
@@ -1703,7 +1699,7 @@ main {
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* Hide right-side buttons and shift links */
+
 .nav-actions {
   display: none !important;
 }
@@ -1725,12 +1721,12 @@ main {
   text-transform: uppercase;
 }
 
-/* Ensure cursor changes on hover */
+
 .nav-links a, .nav-logo {
   cursor: pointer !important;
 }
 
-/* Split Nav Animation */
+
 #vixora-nav {
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
@@ -1745,7 +1741,7 @@ main {
   padding: 0 3rem;
 }
 
-/* Left Pill: Logo (V) */
+
 #vixora-nav .nav-logo {
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1), color 0.4s ease;
   display: flex;
@@ -1788,7 +1784,7 @@ main {
   margin-right: 0;
 }
 
-/* Right Pill: Hamburger */
+
 #vixora-nav .nav-hamburger {
   display: flex !important;
   opacity: 0;
@@ -1835,9 +1831,9 @@ main {
   color: var(--charcoal);
 }
 
-/* ─── MOBILE LOGO COLLAPSE & EXPAND ─── */
+
 @media (max-width: 768px) {
-  /* Default mobile state: Collapsed pill */
+  
   #vixora-nav .nav-logo {
     background: rgba(0, 0, 0, 0.7) !important;
     backdrop-filter: blur(20px) saturate(180%) !important;
@@ -1863,9 +1859,9 @@ main {
     margin-right: 0 !important;
   }
 
-  /* Expanded mobile state (triggered by tap) */
+  
   #vixora-nav .nav-logo.mobile-expanded {
-    /* Keep the pill background, just add more side padding for the full word if needed */
+    
     padding: 0 1.5rem !important;
     letter-spacing: 0.1em !important;
   }
@@ -1888,7 +1884,7 @@ main {
   font-weight: 700 !important;
 }
 
-/* Hide Links on Scroll (Slide into Menu) */
+
 #vixora-nav.nav-scrolled .nav-links {
   opacity: 0;
   pointer-events: none;
@@ -1901,11 +1897,9 @@ main {
   transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* ==========================================================================
-   SKELETAL LOADING SYSTEM
-   ========================================================================== */
 
-/* Active State to hide actual page contents initially */
+
+
 body.skeleton-active main#swup {
   opacity: 0 !important;
   pointer-events: none !important;
@@ -1915,14 +1909,14 @@ body.skeleton-active #vixora-nav {
   pointer-events: none !important;
 }
 
-/* Skeleton Container and Shimmer styles */
+
 .skeleton-overlay {
   position: fixed;
   inset: 0;
   background-color: var(--cream);
   z-index: 999999;
   overflow-y: auto;
-  padding-top: 80px; /* Offset for nav */
+  padding-top: 80px; 
   display: flex;
   flex-direction: column;
 }
@@ -1946,7 +1940,7 @@ body.skeleton-active #vixora-nav {
   box-sizing: border-box;
 }
 
-/* Shimmer Animation base block */
+
 .skeleton-block {
   background-color: rgba(26, 32, 38, 0.07);
   border-radius: var(--radius-sm);
@@ -1980,7 +1974,7 @@ body.skeleton-active #vixora-nav {
   }
 }
 
-/* Specific skeleton component shapes matching Vixora styles */
+
 .skeleton-card {
   background: var(--cream-light);
   border: var(--border);
@@ -1992,7 +1986,7 @@ body.skeleton-active #vixora-nav {
   overflow: hidden;
 }
 
-/* Services card shape overrides */
+
 .skeleton-service-card {
   display: flex;
   margin-bottom: 2rem;
@@ -2010,7 +2004,7 @@ body.skeleton-active #vixora-nav {
     border-bottom: var(--border) !important;
   }
 }
-/* ─── GLOBAL SCROLL INDICATOR ─── */
+
 .global-scroll-indicator {
   position: fixed;
   bottom: 2rem;
@@ -2066,7 +2060,7 @@ body.skeleton-active #vixora-nav {
   transform: translateX(1px);
 }
 
-/* Mobile & iPad overrides */
+
 @media (max-width: 1024px) {
   .global-scroll-indicator {
     right: 1.5rem;
@@ -2081,7 +2075,7 @@ body.skeleton-active #vixora-nav {
   }
 }
 
-/* Glassmorphic backdrop for body text to improve readability over dot grid */
+
 .about-body,
 .brand-promise-inner p:not(.section-label),
 .container > p.reveal:not(.section-label),
